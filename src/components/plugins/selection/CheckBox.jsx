@@ -125,7 +125,7 @@ export const handleChange = (
         else {
 
             fireEvent(
-                'HANDLE_BEFORE_SELECT_ALL',
+                'HANDLE_BEFORE_DESELECT_ALL',
                 events,
                 {
                     data: dataSource,

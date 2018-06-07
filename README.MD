@@ -398,6 +398,7 @@ export const events = {
     HANLE_BEFORE_EDIT: () => {},
     HANDLE_BEFORE_SELECT_ALL: () => {},
     HANDLE_AFTER_SELECT_ALL: () => {},
+    HANDLE_BEFORE_DESELECT_ALL: () => {},
     HANDLE_AFTER_DESELECT_ALL: () => {},
     HANDLE_AFTER_ROW_DROP: () => {},
     HANDLE_BEFORE_TREE_CHILD_CREATE: () => {},

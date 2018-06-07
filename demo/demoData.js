@@ -48,6 +48,9 @@ export const events = {
     HANDLE_AFTER_SELECT_ALL: () => {
         console.log('Handle after select all');
     },
+    HANDLE_BEFORE_DESELECT_ALL: () => {
+        console.log('Handle after deselect all');
+    },
     HANDLE_AFTER_DESELECT_ALL: () => {
         console.log('Handle after deselect all');
     },
