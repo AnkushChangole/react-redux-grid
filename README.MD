@@ -396,6 +396,7 @@ export const events = {
     HANDLE_AFTER_BULKACTION_SHOW: () => {},
     HANDLE_BEFORE_SORT: () => {},
     HANLE_BEFORE_EDIT: () => {},
+    HANDLE_BEFORE_SELECT_ALL: () => {},
     HANDLE_AFTER_SELECT_ALL: () => {},
     HANDLE_AFTER_DESELECT_ALL: () => {},
     HANDLE_AFTER_ROW_DROP: () => {},
