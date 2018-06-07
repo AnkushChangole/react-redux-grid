@@ -98,6 +98,17 @@ export const handleChange = (
     if (type === 'header') {
 
         if (target.checked) {
+
+            fireEvent(
+                'HANDLE_BEFORE_SELECT_ALL',
+                events,
+                {
+                    data: dataSource,
+                    store
+                },
+                reactEvent
+            );
+
             store.dispatch(selectAll({ stateKey, data: dataSource }));
 
             fireEvent(
@@ -112,6 +123,17 @@ export const handleChange = (
         }
 
         else {
+
+            fireEvent(
+                'HANDLE_BEFORE_SELECT_ALL',
+                events,
+                {
+                    data: dataSource,
+                    store
+                },
+                reactEvent
+            );
+
             store.dispatch(deselectAll({ stateKey }));
 
             fireEvent(
