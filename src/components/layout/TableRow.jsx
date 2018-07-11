@@ -12,7 +12,7 @@ import { prefix } from '../../util/prefix';
 import { getCurrentRecords } from '../../util/getCurrentRecords';
 import { getRowKey } from '../../util/getData';
 
-import { moveNode } from '../../actions/GridActions';
+import { moveNode, moveNodeFlat } from '../../actions/GridActions';
 import {
     BUFFER_MULTIPLIER,
     DEFAULT_VIEWABLE_RECORDS,
@@ -156,7 +156,12 @@ export class TableRow extends Component {
     );
 
     moveRow = (current, next) => {
-        const { stateKey, store, showTreeRootNode } = this.props;
+        const {
+            stateKey,
+            store,
+            showTreeRootNode
+        } = this.props;
+
         if (!this.requestedFrame) {
             this.requestedFrame = requestAnimationFrame(() => {
                 store.dispatch(
@@ -165,6 +170,29 @@ export class TableRow extends Component {
                         store,
                         current,
                         next,
+                        showTreeRootNode
+                    })
+                );
+                this.requestedFrame = null;
+            });
+        }
+    };
+
+    moveRowFlat = (hoverRow, grabbedRow) => {
+        const {
+            stateKey,
+            store,
+            showTreeRootNode
+        } = this.props;
+
+        if (!this.requestedFrame) {
+            this.requestedFrame = requestAnimationFrame(() => {
+                store.dispatch(
+                    moveNodeFlat({
+                        stateKey,
+                        store,
+                        hoverRow,
+                        grabbedRow,
                         showTreeRootNode
                     })
                 );
@@ -213,6 +241,7 @@ export class TableRow extends Component {
             key={getRowKey(this.props.columns, row)}
             menuState={this.props.menuState}
             moveRow={this.moveRow}
+            moveRowFlat={this.moveRowFlat}
             nextRow={rows.get(index + 1)}
             plugins={this.props.plugins}
             previousRow={rows.get(index - 1)}

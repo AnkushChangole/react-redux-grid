@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.setHeaderVisibility = exports.moveNode = exports.setTreeNodeVisibility = exports.insertRow = exports.setTreeData = exports.setData = exports.resizeColumns = exports.setColumnVisibility = exports.doRemoteSort = exports.doLocalSort = exports.setSortDirection = exports.setColumns = exports.getAsyncData = undefined;
+exports.setHeaderVisibility = exports.moveNodeFlat = exports.moveNode = exports.setTreeNodeVisibility = exports.insertRow = exports.setTreeData = exports.setData = exports.resizeColumns = exports.setColumnVisibility = exports.doRemoteSort = exports.doLocalSort = exports.setSortDirection = exports.setColumns = exports.getAsyncData = undefined;
 
 var _ActionTypes = require('../constants/ActionTypes');
 
@@ -340,9 +340,10 @@ var resizeColumns = exports.resizeColumns = function resizeColumns(_ref7) {
 var setData = exports.setData = function setData(_ref8) {
     var data = _ref8.data,
         stateKey = _ref8.stateKey,
-        editMode = _ref8.editMode;
+        editMode = _ref8.editMode,
+        total = _ref8.total;
     return {
-        type: _ActionTypes.SET_DATA, data: data, stateKey: stateKey, editMode: editMode
+        type: _ActionTypes.SET_DATA, data: data, stateKey: stateKey, editMode: editMode, total: total
     };
 };
 
@@ -429,9 +430,23 @@ var moveNode = exports.moveNode = function moveNode(_ref12) {
     };
 };
 
-var setHeaderVisibility = exports.setHeaderVisibility = function setHeaderVisibility(_ref13) {
-    var hidden = _ref13.hidden,
-        stateKey = _ref13.stateKey;
+var moveNodeFlat = exports.moveNodeFlat = function moveNodeFlat(_ref13) {
+    var stateKey = _ref13.stateKey,
+        hoverRow = _ref13.hoverRow,
+        grabbedRow = _ref13.grabbedRow,
+        showTreeRootNode = _ref13.showTreeRootNode;
+    return {
+        type: _ActionTypes.MOVE_NODE_FLAT,
+        stateKey: stateKey,
+        hoverRow: hoverRow,
+        grabbedRow: grabbedRow,
+        showTreeRootNode: showTreeRootNode
+    };
+};
+
+var setHeaderVisibility = exports.setHeaderVisibility = function setHeaderVisibility(_ref14) {
+    var hidden = _ref14.hidden,
+        stateKey = _ref14.stateKey;
     return {
         type: _ActionTypes.HIDE_HEADER, headerHidden: hidden, stateKey: stateKey
     };
@@ -466,6 +481,8 @@ var _temp = function () {
     __REACT_HOT_LOADER__.register(setTreeNodeVisibility, 'setTreeNodeVisibility', 'src/actions/GridActions.js');
 
     __REACT_HOT_LOADER__.register(moveNode, 'moveNode', 'src/actions/GridActions.js');
+
+    __REACT_HOT_LOADER__.register(moveNodeFlat, 'moveNodeFlat', 'src/actions/GridActions.js');
 
     __REACT_HOT_LOADER__.register(setHeaderVisibility, 'setHeaderVisibility', 'src/actions/GridActions.js');
 }();

@@ -136,6 +136,10 @@ var TableRow = exports.TableRow = function (_Component) {
             return _this.__moveRow__REACT_HOT_LOADER__.apply(_this, arguments);
         };
 
+        _this.moveRowFlat = function () {
+            return _this.__moveRowFlat__REACT_HOT_LOADER__.apply(_this, arguments);
+        };
+
         _this.rowSelection = function () {
             return _this.__rowSelection__REACT_HOT_LOADER__.apply(_this, arguments);
         };
@@ -209,6 +213,7 @@ var TableRow = exports.TableRow = function (_Component) {
                     key: (0, _getData.getRowKey)(_this2.props.columns, row),
                     menuState: _this2.props.menuState,
                     moveRow: _this2.moveRow,
+                    moveRowFlat: _this2.moveRowFlat,
                     nextRow: rows.get(index + 1),
                     plugins: _this2.props.plugins,
                     previousRow: rows.get(index - 1),
@@ -250,14 +255,39 @@ var TableRow = exports.TableRow = function (_Component) {
             return (0, _getCurrentRecords.getCurrentRecords)(dataSource, pager && pager.pageIndex ? pager.pageIndex : 0, pageSize, infinite, viewableIndex, viewableCount, _GridConstants.BUFFER_MULTIPLIER).data;
         }
     }, {
-        key: '__moveRow__REACT_HOT_LOADER__',
-        value: function __moveRow__REACT_HOT_LOADER__(current, next) {
+        key: '__moveRowFlat__REACT_HOT_LOADER__',
+        value: function __moveRowFlat__REACT_HOT_LOADER__(hoverRow, grabbedRow) {
             var _this3 = this;
 
             var _props2 = this.props,
                 stateKey = _props2.stateKey,
                 store = _props2.store,
                 showTreeRootNode = _props2.showTreeRootNode;
+
+
+            if (!this.requestedFrame) {
+                this.requestedFrame = requestAnimationFrame(function () {
+                    store.dispatch((0, _GridActions.moveNodeFlat)({
+                        stateKey: stateKey,
+                        store: store,
+                        hoverRow: hoverRow,
+                        grabbedRow: grabbedRow,
+                        showTreeRootNode: showTreeRootNode
+                    }));
+                    _this3.requestedFrame = null;
+                });
+            }
+        }
+    }, {
+        key: '__moveRow__REACT_HOT_LOADER__',
+        value: function __moveRow__REACT_HOT_LOADER__(current, next) {
+            var _this4 = this;
+
+            var _props3 = this.props,
+                stateKey = _props3.stateKey,
+                store = _props3.store,
+                showTreeRootNode = _props3.showTreeRootNode;
+
 
             if (!this.requestedFrame) {
                 this.requestedFrame = requestAnimationFrame(function () {
@@ -268,7 +298,7 @@ var TableRow = exports.TableRow = function (_Component) {
                         next: next,
                         showTreeRootNode: showTreeRootNode
                     }));
-                    _this3.requestedFrame = null;
+                    _this4.requestedFrame = null;
                 });
             }
         }

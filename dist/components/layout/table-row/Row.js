@@ -429,15 +429,20 @@ var handleRowSingleClickEvent = exports.handleRowSingleClickEvent = function han
 var rowSource = {
     beginDrag: function beginDrag(_ref) {
         var getTreeData = _ref.getTreeData,
+            gridType = _ref.gridType,
             row = _ref.row;
 
-        return {
-            getTreeData: getTreeData,
-            _id: row.get('_id'),
-            _index: row.get('_index'),
-            _parentId: row.get('_parentId'),
-            _path: row.get('_path')
-        };
+        if (gridType === 'tree') {
+            return {
+                getTreeData: getTreeData,
+                _id: row.get('_id'),
+                _index: row.get('_index'),
+                _parentId: row.get('_parentId'),
+                _path: row.get('_path')
+            };
+        }
+
+        return row.toJS();
     },
     endDrag: function endDrag(_ref2, monitor) {
         var getTreeData = _ref2.getTreeData,
@@ -460,9 +465,27 @@ var rowSource = {
     }
 };
 
+var getDataForTreeGrid = function getDataForTreeGrid(monitor) {
+    var _monitor$getItem2 = monitor.getItem(),
+        getTreeData = _monitor$getItem2.getTreeData;
+
+    return getTreeData ? getTreeData() : {};
+};
+
+var getPathDataForTreeGrid = function getPathDataForTreeGrid(hoverPath, monitor) {
+    var _monitor$getItem3 = monitor.getItem(),
+        getTreeData = _monitor$getItem3.getTreeData;
+
+    return getTreeData ? {
+        path: [].concat(_toConsumableArray(getTreeData().path.toJS())),
+        targetPath: hoverPath.toJS()
+    } : {};
+};
+
 var rowTarget = {
     hover: function hover(props, monitor, component) {
-        var hoverEvents = props.events,
+        var gridType = props.gridType,
+            hoverEvents = props.events,
             hoverRow = props.row,
             hoverPreviousRow = props.previousRow;
         var _props$treeData = props.treeData,
@@ -473,24 +496,24 @@ var rowTarget = {
             hoverPath = _props$treeData.path,
             hoverFlatIndex = _props$treeData.flatIndex;
 
-        var _monitor$getItem2 = monitor.getItem(),
-            lastX = _monitor$getItem2.lastX,
-            getTreeData = _monitor$getItem2.getTreeData,
-            row = _monitor$getItem2.row;
+        var _monitor$getItem4 = monitor.getItem(),
+            lastX = _monitor$getItem4.lastX,
+            row = _monitor$getItem4.row;
 
-        var _getTreeData2 = getTreeData(),
-            id = _getTreeData2.id,
-            index = _getTreeData2.index,
-            parentId = _getTreeData2.parentId,
-            isLastChild = _getTreeData2.isLastChild,
-            isFirstChild = _getTreeData2.isFirstChild,
-            flatIndex = _getTreeData2.flatIndex,
-            parentIndex = _getTreeData2.parentIndex,
-            previousSiblingTotalChildren = _getTreeData2.previousSiblingTotalChildren,
-            previousSiblingId = _getTreeData2.previousSiblingId;
+        var _getDataForTreeGrid = getDataForTreeGrid(monitor),
+            id = _getDataForTreeGrid.id,
+            index = _getDataForTreeGrid.index,
+            parentId = _getDataForTreeGrid.parentId,
+            isLastChild = _getDataForTreeGrid.isLastChild,
+            isFirstChild = _getDataForTreeGrid.isFirstChild,
+            flatIndex = _getDataForTreeGrid.flatIndex,
+            parentIndex = _getDataForTreeGrid.parentIndex,
+            previousSiblingTotalChildren = _getDataForTreeGrid.previousSiblingTotalChildren,
+            previousSiblingId = _getDataForTreeGrid.previousSiblingId;
 
-        var path = [].concat(_toConsumableArray(getTreeData().path.toJS()));
-        var targetPath = hoverPath.toJS();
+        var _getPathDataForTreeGr = getPathDataForTreeGrid(hoverPath, monitor),
+            path = _getPathDataForTreeGr.path,
+            targetPath = _getPathDataForTreeGr.targetPath;
 
         var targetIndex = hoverIndex;
         var targetParentId = hoverParentId;
@@ -501,7 +524,7 @@ var rowTarget = {
         }
 
         // cant drop child into a path that contains itself
-        if (hoverPath.indexOf(id) !== -1) {
+        if (hoverPath && hoverPath.indexOf(id) !== -1) {
             return;
         }
 
@@ -520,7 +543,7 @@ var rowTarget = {
 
         // if hover occurs over the grabbed row, we need to determine
         // if X position indicates left or right
-        if (hoverIndex === index && parentId === hoverParentId) {
+        if (gridType === 'tree' && hoverIndex === index && parentId === hoverParentId) {
 
             // if a previous X position hasn't been set
             // set, and early return for next hover event
@@ -558,11 +581,13 @@ var rowTarget = {
                     else {
                             return;
                         }
-        } else {
+        } else if (gridType === 'tree') {
             // Only perform the move when the mouse
             // has crossed half of the items height
             // When dragging downwards, only move when the cursor is below 50%
             // When dragging upwards, only move when the cursor is above 50%
+
+            console.log(flatIndex, hoverFlatIndex);
 
             // Dragging downwards
             if (flatIndex < hoverFlatIndex && hoverClientY < hoverMiddleY) {
@@ -576,7 +601,7 @@ var rowTarget = {
 
             // If hoverIsExpanded, put item as first child instead
             // instead of placing it as a sibling below hovered item
-            if (flatIndex < hoverFlatIndex && hoverIsExpanded) {
+            if (gridType === 'tree' && flatIndex < hoverFlatIndex && hoverIsExpanded) {
                 var _validDrop = (0, _fire.fireEvent)('HANDLE_BEFORE_TREE_CHILD_CREATE', hoverEvents, {
                     row: row,
                     hoverRow: hoverRow
@@ -590,22 +615,51 @@ var rowTarget = {
                 targetParentId = hoverId;
                 targetPath.push(targetParentId);
             }
+        } else {
+            var currentIndex = hoverRow.get('index');
+            var previousIndex = hoverPreviousRow.get('index');
+
+            // Hover is over the grabbed row, return early
+            if (monitor.getItem().index === hoverRow.get('index')) {
+                return;
+            }
+
+            // Dragging downwards
+            if (currentIndex < previousIndex && hoverClientY < hoverMiddleY) {
+                return;
+            }
+
+            // Dragging upwards
+            if (currentIndex > previousIndex && hoverClientY > hoverMiddleY) {
+                return;
+            }
         }
 
-        props.moveRow({ id: id, index: index, parentId: parentId, path: path }, { index: targetIndex, parentId: targetParentId, path: targetPath });
+        if (gridType === 'tree') {
+            props.moveRow({ id: id, index: index, parentId: parentId, path: path }, {
+                index: targetIndex,
+                parentId: targetParentId,
+                path: targetPath
+            });
+        } else {
+            props.moveRowFlat(hoverRow, monitor.getItem());
+        }
 
         monitor.getItem().lastX = mouseX;
     },
     drop: function drop(props, monitor) {
         var events = props.events,
+            findRow = props.findRow,
             getTreeData = props.getTreeData,
-            findRow = props.findRow;
+            gridType = props.gridType;
 
-        var _monitor$getItem3 = monitor.getItem(),
-            _id = _monitor$getItem3._id;
+
+        var rowIdentifier = gridType === 'tree' ? '_id' : 'id';
+
+        var rowId = monitor.getItem()[rowIdentifier];
 
         var row = findRow(function (data) {
-            return data.get('_id') === _id;
+            return data.get(rowIdentifier) === rowId;
         });
 
         if (row) {
@@ -670,6 +724,10 @@ var _temp = function () {
     __REACT_HOT_LOADER__.register(handleRowSingleClickEvent, 'handleRowSingleClickEvent', 'src/components/layout/table-row/Row.jsx');
 
     __REACT_HOT_LOADER__.register(rowSource, 'rowSource', 'src/components/layout/table-row/Row.jsx');
+
+    __REACT_HOT_LOADER__.register(getDataForTreeGrid, 'getDataForTreeGrid', 'src/components/layout/table-row/Row.jsx');
+
+    __REACT_HOT_LOADER__.register(getPathDataForTreeGrid, 'getPathDataForTreeGrid', 'src/components/layout/table-row/Row.jsx');
 
     __REACT_HOT_LOADER__.register(rowTarget, 'rowTarget', 'src/components/layout/table-row/Row.jsx');
 

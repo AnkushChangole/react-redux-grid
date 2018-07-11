@@ -2,6 +2,7 @@ import {
     ERROR_OCCURRED,
     HIDE_HEADER,
     MOVE_NODE,
+    MOVE_NODE_FLAT,
     RESIZE_COLUMNS,
     SET_COLUMNS,
     SET_DATA,
@@ -370,8 +371,8 @@ export const resizeColumns = ({
 
 };
 
-export const setData = ({ data, stateKey, editMode }) => ({
-    type: SET_DATA, data, stateKey, editMode
+export const setData = ({ data, stateKey, editMode, total }) => ({
+    type: SET_DATA, data, stateKey, editMode, total
 });
 
 export const setTreeData = ({
@@ -436,6 +437,16 @@ export const moveNode = ({
     stateKey,
     current,
     next,
+    showTreeRootNode
+});
+
+export const moveNodeFlat = ({
+    stateKey, hoverRow, grabbedRow, showTreeRootNode
+}) => ({
+    type: MOVE_NODE_FLAT,
+    stateKey,
+    hoverRow,
+    grabbedRow,
     showTreeRootNode
 });
 

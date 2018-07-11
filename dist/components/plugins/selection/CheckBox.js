@@ -77,6 +77,12 @@ var handleChange = exports.handleChange = function handleChange(dataSource, stor
     if (type === 'header') {
 
         if (target.checked) {
+
+            (0, _fire.fireEvent)('HANDLE_BEFORE_SELECT_ALL', events, {
+                data: dataSource,
+                store: store
+            }, reactEvent);
+
             store.dispatch((0, _ModelActions.selectAll)({ stateKey: stateKey, data: dataSource }));
 
             (0, _fire.fireEvent)('HANDLE_AFTER_SELECT_ALL', events, {
@@ -84,6 +90,12 @@ var handleChange = exports.handleChange = function handleChange(dataSource, stor
                 store: store
             }, reactEvent);
         } else {
+
+            (0, _fire.fireEvent)('HANDLE_BEFORE_DESELECT_ALL', events, {
+                data: dataSource,
+                store: store
+            }, reactEvent);
+
             store.dispatch((0, _ModelActions.deselectAll)({ stateKey: stateKey }));
 
             (0, _fire.fireEvent)('HANDLE_AFTER_DESELECT_ALL', events, {
