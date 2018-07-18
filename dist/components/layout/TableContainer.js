@@ -45,6 +45,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var any = _propTypes2.default.any,
     bool = _propTypes2.default.bool,
+    func = _propTypes2.default.func,
     number = _propTypes2.default.number,
     object = _propTypes2.default.object,
     oneOfType = _propTypes2.default.oneOfType,
@@ -60,6 +61,7 @@ var TableContainer = exports.TableContainer = function (_Component) {
                 CLASS_NAMES = _gridConfig.CLASS_NAMES;
 
             var _props = this.props,
+                canDrop = _props.canDrop,
                 editorComponent = _props.editorComponent,
                 headerProps = _props.headerProps,
                 height = _props.height,
@@ -84,6 +86,7 @@ var TableContainer = exports.TableContainer = function (_Component) {
                     },
                     _react2.default.createElement(_Header2.default, headerProps),
                     _react2.default.createElement(_TableRow2.default, _extends({
+                        canDrop: canDrop,
                         containerHeight: containerHeight,
                         containerScrollTop: containerScrollTop,
                         infinite: infinite
@@ -178,6 +181,7 @@ var TableContainer = exports.TableContainer = function (_Component) {
 }(_react.Component);
 
 TableContainer.propTypes = {
+    canDrop: func,
     editorComponent: any,
     headerProps: object,
     height: oneOfType([bool, string, number]),
@@ -200,6 +204,8 @@ var _temp = function () {
     __REACT_HOT_LOADER__.register(any, 'any', 'src/components/layout/TableContainer.jsx');
 
     __REACT_HOT_LOADER__.register(bool, 'bool', 'src/components/layout/TableContainer.jsx');
+
+    __REACT_HOT_LOADER__.register(func, 'func', 'src/components/layout/TableContainer.jsx');
 
     __REACT_HOT_LOADER__.register(number, 'number', 'src/components/layout/TableContainer.jsx');
 

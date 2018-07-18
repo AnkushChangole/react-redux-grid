@@ -8,7 +8,7 @@ import { debounce, throttle } from './../../util/throttle';
 import Row from './TableRow';
 import Header from './Header';
 
-const { any, bool, number, object, oneOfType, string } = PropTypes;
+const { any, bool, func, number, object, oneOfType, string } = PropTypes;
 
 export class TableContainer extends Component {
 
@@ -16,6 +16,7 @@ export class TableContainer extends Component {
 
         const { CLASS_NAMES } = gridConfig();
         const {
+            canDrop,
             editorComponent,
             headerProps,
             height,
@@ -40,6 +41,7 @@ export class TableContainer extends Component {
                 >
                     <Header { ...headerProps } />
                     <Row
+                        canDrop={canDrop}
                         containerHeight={containerHeight}
                         containerScrollTop={containerScrollTop}
                         infinite={infinite}
@@ -96,6 +98,7 @@ export class TableContainer extends Component {
     }
 
     static propTypes = {
+        canDrop: func,
         editorComponent: any,
         headerProps: object,
         height: oneOfType([

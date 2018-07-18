@@ -80,6 +80,7 @@ export class TableRow extends Component {
     }
 
     static propTypes = {
+        canDrop: func,
         columnManager: object.isRequired,
         columns: arrayOf(object).isRequired,
         containerHeight: number,
@@ -228,6 +229,7 @@ export class TableRow extends Component {
 
     toRowComponents = () => (row, index, rows) => (
         <Row
+            canDrop={this.props.canDrop}
             columnManager={this.props.columnManager}
             columns={this.props.columns}
             dragAndDrop={this.props.dragAndDrop}

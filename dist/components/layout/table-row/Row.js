@@ -587,8 +587,6 @@ var rowTarget = {
             // When dragging downwards, only move when the cursor is below 50%
             // When dragging upwards, only move when the cursor is above 50%
 
-            console.log(flatIndex, hoverFlatIndex);
-
             // Dragging downwards
             if (flatIndex < hoverFlatIndex && hoverClientY < hoverMiddleY) {
                 return;
@@ -647,8 +645,10 @@ var rowTarget = {
 
         monitor.getItem().lastX = mouseX;
     },
+    canDrop: function canDrop(props, monitor) {},
     drop: function drop(props, monitor) {
-        var events = props.events,
+        var editor = props.editor,
+            events = props.events,
             findRow = props.findRow,
             getTreeData = props.getTreeData,
             gridType = props.gridType;
@@ -664,6 +664,7 @@ var rowTarget = {
 
         if (row) {
             (0, _fire.fireEvent)('HANDLE_AFTER_ROW_DROP', events, _extends({
+                editor: editor,
                 row: row
             }, getTreeData()), null);
         }

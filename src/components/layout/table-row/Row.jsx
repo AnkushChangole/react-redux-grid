@@ -13,7 +13,16 @@ import { fireEvent } from '../../../util/fire';
 import { getData, getRowKey } from '../../../util/getData';
 import { gridConfig } from '../../../constants/GridConstants';
 
-const { arrayOf, bool, func, object, string, oneOf, number, oneOfType } = PropTypes;
+const {
+    arrayOf,
+    bool,
+    func,
+    object,
+    string,
+    oneOf,
+    number,
+    oneOfType
+} = PropTypes;
 
 const DRAG_INCREMENT = 15;
 
@@ -614,8 +623,6 @@ const rowTarget = {
             // When dragging downwards, only move when the cursor is below 50%
             // When dragging upwards, only move when the cursor is above 50%
 
-            console.log(flatIndex, hoverFlatIndex);
-
             // Dragging downwards
             if (flatIndex < hoverFlatIndex && hoverClientY < hoverMiddleY) {
                 return;
@@ -697,8 +704,18 @@ const rowTarget = {
         monitor.getItem().lastX = mouseX;
     },
 
+    canDrop(props, monitor) {
+
+    },
+
     drop(props, monitor) {
-        const { events, findRow, getTreeData, gridType } = props;
+        const {
+            editor,
+            events,
+            findRow,
+            getTreeData,
+            gridType
+        } = props;
 
         const rowIdentifier = gridType === 'tree'
             ? '_id'
@@ -713,6 +730,7 @@ const rowTarget = {
                 'HANDLE_AFTER_ROW_DROP',
                 events,
                 {
+                    editor,
                     row,
                     ...getTreeData()
                 },

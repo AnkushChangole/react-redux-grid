@@ -96,6 +96,7 @@ var any = _propTypes2.default.any,
     array = _propTypes2.default.array,
     arrayOf = _propTypes2.default.arrayOf,
     bool = _propTypes2.default.bool,
+    func = _propTypes2.default.func,
     object = _propTypes2.default.object,
     oneOf = _propTypes2.default.oneOf,
     oneOfType = _propTypes2.default.oneOfType,
@@ -122,6 +123,7 @@ var Grid = exports.Grid = function (_Component) {
             }
 
             var _props = this.props,
+                canDrop = _props.canDrop,
                 classNames = _props.classNames,
                 columnState = _props.columnState,
                 dataSource = _props.dataSource,
@@ -159,6 +161,7 @@ var Grid = exports.Grid = function (_Component) {
                     headerHidden: headerHidden
                 }, this.getHeaderProps(true))),
                 _react2.default.createElement(_TableContainer2.default, {
+                    canDrop: canDrop,
                     editorComponent: editorComponent,
                     headerProps: this.getHeaderProps(false),
                     height: height,
@@ -492,6 +495,7 @@ Grid.contextTypes = {
     store: object
 };
 Grid.propTypes = {
+    canDrop: func,
     classNames: array,
     columnState: object,
     columns: arrayOf(object).isRequired,
@@ -549,6 +553,8 @@ var _temp = function () {
     __REACT_HOT_LOADER__.register(arrayOf, 'arrayOf', 'src/components/Grid.jsx');
 
     __REACT_HOT_LOADER__.register(bool, 'bool', 'src/components/Grid.jsx');
+
+    __REACT_HOT_LOADER__.register(func, 'func', 'src/components/Grid.jsx');
 
     __REACT_HOT_LOADER__.register(object, 'object', 'src/components/Grid.jsx');
 

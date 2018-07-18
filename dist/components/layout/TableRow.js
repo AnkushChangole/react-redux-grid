@@ -200,6 +200,7 @@ var TableRow = exports.TableRow = function (_Component) {
 
             return function (row, index, rows) {
                 return _react2.default.createElement(_Row2.default, {
+                    canDrop: _this2.props.canDrop,
                     columnManager: _this2.props.columnManager,
                     columns: _this2.props.columns,
                     dragAndDrop: _this2.props.dragAndDrop,
@@ -353,6 +354,7 @@ var TableRow = exports.TableRow = function (_Component) {
 }(_react.Component);
 
 TableRow.propTypes = {
+    canDrop: func,
     columnManager: object.isRequired,
     columns: arrayOf(object).isRequired,
     containerHeight: number,

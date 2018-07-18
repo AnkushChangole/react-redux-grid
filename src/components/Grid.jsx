@@ -38,6 +38,7 @@ const {
     array,
     arrayOf,
     bool,
+    func,
     object,
     oneOf,
     oneOfType,
@@ -60,6 +61,7 @@ export class Grid extends Component {
         }
 
         const {
+            canDrop,
             classNames,
             columnState,
             dataSource,
@@ -107,6 +109,7 @@ export class Grid extends Component {
                     { ...this.getHeaderProps(true) }
                 />
                 <TableContainer
+                    canDrop={canDrop}
                     editorComponent={editorComponent}
                     headerProps={this.getHeaderProps(false)}
                     height={height}
@@ -218,6 +221,7 @@ export class Grid extends Component {
     }
 
     static propTypes = {
+        canDrop: func,
         classNames: array,
         columnState: object,
         columns: arrayOf(object).isRequired,
@@ -422,7 +426,7 @@ export class Grid extends Component {
         selectionModel: this.selectionModel,
         stateKey: this.props.stateKey,
         store: this.getStore(),
-        stateful: this. props.stateful,
+        stateful: this.props.stateful,
         showTreeRootNode: this.props.showTreeRootNode,
         menuState: this.props.menuState,
         gridType: this.gridType
