@@ -695,7 +695,7 @@ const rowTarget = {
                 }
             );
         }
-        else {
+        else if (monitor.canDrop()) {
             props.moveRowFlat(
                 hoverRow, monitor.getItem()
             );
