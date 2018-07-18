@@ -645,7 +645,15 @@ var rowTarget = {
 
         monitor.getItem().lastX = mouseX;
     },
-    canDrop: function canDrop(props, monitor) {},
+    canDrop: function canDrop(props, monitor) {
+        var _canDrop = props.canDrop;
+
+        if (_canDrop) {
+            return _canDrop(monitor.getItem());
+        }
+
+        return true;
+    },
     drop: function drop(props, monitor) {
         var editor = props.editor,
             events = props.events,

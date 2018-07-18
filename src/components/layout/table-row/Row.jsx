@@ -705,7 +705,13 @@ const rowTarget = {
     },
 
     canDrop(props, monitor) {
+        const _canDrop = props.canDrop;
 
+        if (_canDrop) {
+            return _canDrop(monitor.getItem());
+        }
+
+        return true;
     },
 
     drop(props, monitor) {
