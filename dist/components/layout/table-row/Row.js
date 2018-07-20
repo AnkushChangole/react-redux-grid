@@ -652,13 +652,11 @@ var rowTarget = {
 
         monitor.getItem().lastX = mouseX;
     },
-    canDrop: function canDrop(_ref3, monitor) {
-        var row = _ref3.row;
-
+    canDrop: function canDrop(props, monitor) {
         var _canDrop = props.canDrop;
 
         if (_canDrop) {
-            return _canDrop(row, monitor.getItem());
+            return _canDrop(props.row, monitor.getItem());
         }
 
         return true;
