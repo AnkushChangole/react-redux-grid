@@ -446,7 +446,9 @@ var rowSource = {
     },
     endDrag: function endDrag(_ref2, monitor) {
         var getTreeData = _ref2.getTreeData,
-            moveRow = _ref2.moveRow;
+            moveRow = _ref2.moveRow,
+            moveRowFlat = _ref2.moveRowFlat,
+            gridType = _ref2.gridType;
 
         var _getTreeData = getTreeData(),
             id = _getTreeData.id,
@@ -460,7 +462,9 @@ var rowSource = {
             _path = _monitor$getItem._path;
 
         if (!monitor.didDrop()) {
-            moveRow({ id: id, index: index, parentId: parentId, path: path }, { index: _index, parentId: _parentId, path: _path });
+            if (gridType === 'tree') {
+                moveRow({ id: id, index: index, parentId: parentId, path: path }, { index: _index, parentId: _parentId, path: _path });
+            }
         }
     }
 };
@@ -639,7 +643,7 @@ var rowTarget = {
                 parentId: targetParentId,
                 path: targetPath
             });
-        } else {
+        } else if (monitor.canDrop()) {
             props.moveRowFlat(hoverRow, monitor.getItem());
         }
 
