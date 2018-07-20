@@ -445,7 +445,8 @@ var rowSource = {
         return row.toJS();
     },
     endDrag: function endDrag(_ref2, monitor) {
-        var getTreeData = _ref2.getTreeData,
+        var row = _ref2.row,
+            getTreeData = _ref2.getTreeData,
             moveRow = _ref2.moveRow,
             moveRowFlat = _ref2.moveRowFlat,
             gridType = _ref2.gridType;
@@ -464,6 +465,8 @@ var rowSource = {
         if (!monitor.didDrop()) {
             if (gridType === 'tree') {
                 moveRow({ id: id, index: index, parentId: parentId, path: path }, { index: _index, parentId: _parentId, path: _path });
+            } else {
+                moveRowFlat(row, monitor.getItem());
             }
         }
     }

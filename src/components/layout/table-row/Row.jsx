@@ -466,7 +466,7 @@ const rowSource = {
 
         return row.toJS();
     },
-    endDrag({ getTreeData, moveRow, moveRowFlat, gridType }, monitor) {
+    endDrag({ row, getTreeData, moveRow, moveRowFlat, gridType }, monitor) {
         const { id, index, parentId, path } = getTreeData();
         const { _index, _parentId, _path } = monitor.getItem();
 
@@ -476,6 +476,9 @@ const rowSource = {
                     { id, index, parentId, path },
                     { index: _index, parentId: _parentId, path: _path }
                 );
+            }
+            else {
+                moveRowFlat(row, monitor.getItem());
             }
         }
     }
