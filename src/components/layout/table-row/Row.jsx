@@ -709,11 +709,11 @@ const rowTarget = {
         monitor.getItem().lastX = mouseX;
     },
 
-    canDrop(props, monitor) {
+    canDrop({ row }, monitor) {
         const _canDrop = props.canDrop;
 
         if (_canDrop) {
-            return _canDrop(monitor.getItem());
+            return _canDrop(row, monitor.getItem());
         }
 
         return true;
