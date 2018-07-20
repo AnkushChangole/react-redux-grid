@@ -466,15 +466,17 @@ const rowSource = {
 
         return row.toJS();
     },
-    endDrag({ getTreeData, moveRow }, monitor) {
+    endDrag({ getTreeData, moveRow, moveRowFlat, gridType }, monitor) {
         const { id, index, parentId, path } = getTreeData();
         const { _index, _parentId, _path } = monitor.getItem();
 
         if (!monitor.didDrop()) {
-            moveRow(
-                { id, index, parentId, path },
-                { index: _index, parentId: _parentId, path: _path }
-            );
+            if (gridType === 'tree') {
+                moveRow(
+                    { id, index, parentId, path },
+                    { index: _index, parentId: _parentId, path: _path }
+                );
+            }
         }
     }
 };
