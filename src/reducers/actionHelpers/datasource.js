@@ -211,23 +211,16 @@ export const moveNodeFlat = (state, {
 }) => {
     const currentData = state.getIn([stateKey, 'data']);
 
-    const currentIdx = hoverRow.get('index');
+    const currentIdx = hoverRow.get('_index');
     const previousIdx = grabbedRow.index;
 
     const tmp = currentData.get(previousIdx);
-
-    const initialIndex = currentData.get(0).get('displayIndex');
 
     const newData = sortFn
         ? sortFn(currentData, currentIdx, previousIdx, skipFn)
         : currentData
             .remove(previousIdx)
-            .insert(currentIdx, tmp)
-            .map((item, i) => (
-                item.set('index', i).set(
-                    'displayIndex', initialIndex + i
-                )
-            ));
+            .insert(currentIdx, tmp);
 
     grabbedRow.index = currentIdx;
 
