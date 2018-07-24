@@ -227,7 +227,9 @@ var moveNode = exports.moveNode = function moveNode(state, _ref7) {
 var moveNodeFlat = exports.moveNodeFlat = function moveNodeFlat(state, _ref8) {
     var hoverRow = _ref8.hoverRow,
         grabbedRow = _ref8.grabbedRow,
-        stateKey = _ref8.stateKey;
+        stateKey = _ref8.stateKey,
+        sortFn = _ref8.sortFn,
+        skipFn = _ref8.skipFn;
 
     var currentData = state.getIn([stateKey, 'data']);
 
@@ -238,7 +240,7 @@ var moveNodeFlat = exports.moveNodeFlat = function moveNodeFlat(state, _ref8) {
 
     var initialIndex = currentData.get(0).get('displayIndex');
 
-    var newData = currentData.remove(previousIdx).insert(currentIdx, tmp).map(function (item, i) {
+    var newData = sortFn ? sortFn(currentData, currentIdx, previousIdx, skipFn) : currentData.remove(previousIdx).insert(currentIdx, tmp).map(function (item, i) {
         return item.set('index', i).set('displayIndex', initialIndex + i);
     });
 

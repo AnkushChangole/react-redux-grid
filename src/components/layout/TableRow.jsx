@@ -103,6 +103,8 @@ export class TableRow extends Component {
         selectedRows: object,
         selectionModel: object,
         showTreeRootNode: bool,
+        skipFn: func,
+        sortFn: func,
         stateKey: string,
         stateful: bool,
         store: object.isRequired
@@ -183,7 +185,9 @@ export class TableRow extends Component {
         const {
             stateKey,
             store,
-            showTreeRootNode
+            showTreeRootNode,
+            sortFn,
+            skipFn
         } = this.props;
 
         if (!this.requestedFrame) {
@@ -194,7 +198,9 @@ export class TableRow extends Component {
                         store,
                         hoverRow,
                         grabbedRow,
-                        showTreeRootNode
+                        showTreeRootNode,
+                        sortFn,
+                        skipFn
                     })
                 );
                 this.requestedFrame = null;

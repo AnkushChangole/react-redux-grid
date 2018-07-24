@@ -66,7 +66,9 @@ var TableContainer = exports.TableContainer = function (_Component) {
                 headerProps = _props.headerProps,
                 height = _props.height,
                 rowProps = _props.rowProps,
-                infinite = _props.infinite;
+                infinite = _props.infinite,
+                sortFn = _props.sortFn,
+                skipFn = _props.skipFn;
             var _state = this.state,
                 containerScrollTop = _state.containerScrollTop,
                 containerHeight = _state.containerHeight;
@@ -89,7 +91,9 @@ var TableContainer = exports.TableContainer = function (_Component) {
                         canDrop: canDrop,
                         containerHeight: containerHeight,
                         containerScrollTop: containerScrollTop,
-                        infinite: infinite
+                        infinite: infinite,
+                        sortFn: sortFn,
+                        skipFn: skipFn
                     }, rowProps))
                 ),
                 editorComponent
@@ -186,7 +190,9 @@ TableContainer.propTypes = {
     headerProps: object,
     height: oneOfType([bool, string, number]),
     infinite: bool,
-    rowProps: object
+    rowProps: object,
+    skipFn: func,
+    sortFn: func
 };
 TableContainer.defaultProps = {
     headerProps: {},

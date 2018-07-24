@@ -263,7 +263,9 @@ var TableRow = exports.TableRow = function (_Component) {
             var _props2 = this.props,
                 stateKey = _props2.stateKey,
                 store = _props2.store,
-                showTreeRootNode = _props2.showTreeRootNode;
+                showTreeRootNode = _props2.showTreeRootNode,
+                sortFn = _props2.sortFn,
+                skipFn = _props2.skipFn;
 
 
             if (!this.requestedFrame) {
@@ -273,7 +275,9 @@ var TableRow = exports.TableRow = function (_Component) {
                         store: store,
                         hoverRow: hoverRow,
                         grabbedRow: grabbedRow,
-                        showTreeRootNode: showTreeRootNode
+                        showTreeRootNode: showTreeRootNode,
+                        sortFn: sortFn,
+                        skipFn: skipFn
                     }));
                     _this3.requestedFrame = null;
                 });
@@ -377,6 +381,8 @@ TableRow.propTypes = {
     selectedRows: object,
     selectionModel: object,
     showTreeRootNode: bool,
+    skipFn: func,
+    sortFn: func,
     stateKey: string,
     stateful: bool,
     store: object.isRequired

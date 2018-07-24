@@ -207,7 +207,7 @@ export const moveNode = (state, {
 };
 
 export const moveNodeFlat = (state, {
-    hoverRow, grabbedRow, stateKey
+    hoverRow, grabbedRow, stateKey, sortFn, skipFn
 }) => {
     const currentData = state.getIn([stateKey, 'data']);
 
@@ -218,16 +218,16 @@ export const moveNodeFlat = (state, {
 
     const initialIndex = currentData.get(0).get('displayIndex');
 
-    const newData = (
-        currentData
+    const newData = sortFn
+        ? sortFn(currentData, currentIdx, previousIdx, skipFn)
+        : currentData
             .remove(previousIdx)
             .insert(currentIdx, tmp)
             .map((item, i) => (
                 item.set('index', i).set(
                     'displayIndex', initialIndex + i
                 )
-            ))
-    );
+            ));
 
     grabbedRow.index = currentIdx;
 

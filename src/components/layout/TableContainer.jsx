@@ -21,7 +21,9 @@ export class TableContainer extends Component {
             headerProps,
             height,
             rowProps,
-            infinite
+            infinite,
+            sortFn,
+            skipFn
         } = this.props;
 
         const { containerScrollTop, containerHeight } = this.state;
@@ -45,6 +47,8 @@ export class TableContainer extends Component {
                         containerHeight={containerHeight}
                         containerScrollTop={containerScrollTop}
                         infinite={infinite}
+                        sortFn={sortFn}
+                        skipFn={skipFn}
                         { ...rowProps }
                     />
                 </table>
@@ -107,7 +111,9 @@ export class TableContainer extends Component {
             number
         ]),
         infinite: bool,
-        rowProps: object
+        rowProps: object,
+        skipFn: func,
+        sortFn: func
     };
 
     static defaultProps = {

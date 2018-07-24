@@ -134,6 +134,8 @@ var Grid = exports.Grid = function (_Component) {
                 pageSize = _props.pageSize,
                 plugins = _props.plugins,
                 reducerKeys = _props.reducerKeys,
+                skipFn = _props.skipFn,
+                sortFn = _props.sortFn,
                 stateKey = _props.stateKey;
 
 
@@ -166,7 +168,9 @@ var Grid = exports.Grid = function (_Component) {
                     headerProps: this.getHeaderProps(false),
                     height: height,
                     infinite: infinite,
-                    rowProps: this.getRowProps()
+                    rowProps: this.getRowProps(),
+                    skipFn: skipFn,
+                    sortFn: sortFn
                 }),
                 _react2.default.createElement(_Pager2.default, {
                     dataSource: dataSource,
@@ -519,6 +523,8 @@ Grid.propTypes = {
     reducerKeys: oneOfType([object, string]),
     selectedRows: object,
     showTreeRootNode: bool,
+    skipFn: func,
+    sortFn: func,
     stateKey: string,
     stateful: bool,
     store: object

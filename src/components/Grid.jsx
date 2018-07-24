@@ -72,6 +72,8 @@ export class Grid extends Component {
             pageSize,
             plugins,
             reducerKeys,
+            skipFn,
+            sortFn,
             stateKey
         } = this.props;
 
@@ -115,6 +117,8 @@ export class Grid extends Component {
                     height={height}
                     infinite={infinite}
                     rowProps={this.getRowProps()}
+                    skipFn={skipFn}
+                    sortFn={sortFn}
                 />
                 <PagerToolbar
                     dataSource={dataSource}
@@ -252,6 +256,8 @@ export class Grid extends Component {
         reducerKeys: oneOfType([object, string]),
         selectedRows: object,
         showTreeRootNode: bool,
+        skipFn: func,
+        sortFn: func,
         stateKey: string,
         stateful: bool,
         store: object
