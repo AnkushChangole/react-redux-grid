@@ -506,7 +506,8 @@ const rowTarget = {
             gridType,
             events: hoverEvents,
             row: hoverRow,
-            previousRow: hoverPreviousRow
+            previousRow: hoverPreviousRow,
+            canDrop: _canDrop
         } = props;
 
         const {
@@ -700,7 +701,11 @@ const rowTarget = {
                 }
             );
         }
-        else if (monitor.canDrop()) {
+        else if (
+            _canDrop &&
+            _canDrop(hoverRow, monitor.getItem()) &&
+            monitor.canDrop()
+        ) {
             props.moveRowFlat(
                 hoverRow, monitor.getItem()
             );

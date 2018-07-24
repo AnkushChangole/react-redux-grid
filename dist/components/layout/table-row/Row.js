@@ -494,7 +494,8 @@ var rowTarget = {
         var gridType = props.gridType,
             hoverEvents = props.events,
             hoverRow = props.row,
-            hoverPreviousRow = props.previousRow;
+            hoverPreviousRow = props.previousRow,
+            _canDrop = props.canDrop;
         var _props$treeData = props.treeData,
             hoverIndex = _props$treeData.index,
             hoverId = _props$treeData.id,
@@ -646,7 +647,7 @@ var rowTarget = {
                 parentId: targetParentId,
                 path: targetPath
             });
-        } else if (monitor.canDrop()) {
+        } else if (_canDrop && _canDrop(hoverRow, monitor.getItem()) && monitor.canDrop()) {
             props.moveRowFlat(hoverRow, monitor.getItem());
         }
 
