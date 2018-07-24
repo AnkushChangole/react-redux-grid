@@ -47,8 +47,8 @@ export class TableContainer extends Component {
                         containerHeight={containerHeight}
                         containerScrollTop={containerScrollTop}
                         infinite={infinite}
-                        sortFn={sortFn}
                         skipFn={skipFn}
+                        sortFn={sortFn}
                         { ...rowProps }
                     />
                 </table>

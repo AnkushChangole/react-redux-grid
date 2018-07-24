@@ -92,8 +92,8 @@ var TableContainer = exports.TableContainer = function (_Component) {
                         containerHeight: containerHeight,
                         containerScrollTop: containerScrollTop,
                         infinite: infinite,
-                        sortFn: sortFn,
-                        skipFn: skipFn
+                        skipFn: skipFn,
+                        sortFn: sortFn
                     }, rowProps))
                 ),
                 editorComponent

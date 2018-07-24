@@ -441,13 +441,15 @@ export const moveNode = ({
 });
 
 export const moveNodeFlat = ({
-    stateKey, hoverRow, grabbedRow, showTreeRootNode
+    stateKey, hoverRow, grabbedRow, showTreeRootNode, skipFn, sortFn
 }) => ({
     type: MOVE_NODE_FLAT,
     stateKey,
     hoverRow,
     grabbedRow,
-    showTreeRootNode
+    showTreeRootNode,
+    skipFn,
+    sortFn
 });
 
 export const setHeaderVisibility = ({ hidden, stateKey }) => ({

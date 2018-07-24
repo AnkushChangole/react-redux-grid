@@ -434,13 +434,17 @@ var moveNodeFlat = exports.moveNodeFlat = function moveNodeFlat(_ref13) {
     var stateKey = _ref13.stateKey,
         hoverRow = _ref13.hoverRow,
         grabbedRow = _ref13.grabbedRow,
-        showTreeRootNode = _ref13.showTreeRootNode;
+        showTreeRootNode = _ref13.showTreeRootNode,
+        skipFn = _ref13.skipFn,
+        sortFn = _ref13.sortFn;
     return {
         type: _ActionTypes.MOVE_NODE_FLAT,
         stateKey: stateKey,
         hoverRow: hoverRow,
         grabbedRow: grabbedRow,
-        showTreeRootNode: showTreeRootNode
+        showTreeRootNode: showTreeRootNode,
+        skipFn: skipFn,
+        sortFn: sortFn
     };
 };
 
