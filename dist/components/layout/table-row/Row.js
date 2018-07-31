@@ -239,6 +239,7 @@ var Row = exports.Row = function (_Component) {
 }(_react.Component);
 
 Row.propTypes = {
+    canDrag: func,
     columnManager: object.isRequired,
     columns: arrayOf(object).isRequired,
     connectDragSource: func,
@@ -501,15 +502,12 @@ var getPathDataForTreeGrid = function getPathDataForTreeGrid(hoverPath, monitor)
 
 var rowTarget = {
     hover: function hover(props, monitor, component) {
-        if (!monitor.canDrag()) {
-            return;
-        }
-
         var gridType = props.gridType,
             hoverEvents = props.events,
             hoverRow = props.row,
             hoverPreviousRow = props.previousRow,
-            _canDrop = props.canDrop;
+            _canDrop = props.canDrop,
+            _canDrag = props.canDrag;
         var _props$treeData = props.treeData,
             hoverIndex = _props$treeData.index,
             hoverId = _props$treeData.id,
@@ -641,6 +639,10 @@ var rowTarget = {
 
             // Hover is over the grabbed row, return early
             if (monitor.getItem().index === hoverRow.get('index')) {
+                return;
+            }
+
+            if (_canDrag && !_canDrag(hoverRow)) {
                 return;
             }
 
