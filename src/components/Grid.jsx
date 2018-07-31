@@ -72,6 +72,7 @@ export class Grid extends Component {
             pageSize,
             plugins,
             reducerKeys,
+            rowIdentifier,
             skipFn,
             sortFn,
             stateKey
@@ -116,6 +117,7 @@ export class Grid extends Component {
                     headerProps={this.getHeaderProps(false)}
                     height={height}
                     infinite={infinite}
+                    rowIdentifier={rowIdentifier}
                     rowProps={this.getRowProps()}
                     skipFn={skipFn}
                     sortFn={sortFn}
@@ -254,6 +256,7 @@ export class Grid extends Component {
         pager: object,
         plugins: object,
         reducerKeys: oneOfType([object, string]),
+        rowIdentifier: string,
         selectedRows: object,
         showTreeRootNode: bool,
         skipFn: func,

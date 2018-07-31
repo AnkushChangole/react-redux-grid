@@ -263,6 +263,7 @@ Row.propTypes = {
     readFunc: func,
     reducerKeys: oneOfType([object, string]),
     row: object,
+    rowIdentifier: string,
     selectedRows: object,
     selectionModel: object,
     showTreeRootNode: bool,
@@ -670,7 +671,7 @@ var rowTarget = {
             gridType = props.gridType;
 
 
-        var rowIdentifier = gridType === 'tree' ? '_id' : 'id';
+        var rowIdentifier = this.props.rowIdentifier ? this.props.rowIdentifier : gridType === 'tree' ? '_id' : 'id';
 
         var rowId = monitor.getItem()[rowIdentifier];
 

@@ -20,6 +20,7 @@ export class TableContainer extends Component {
             editorComponent,
             headerProps,
             height,
+            rowIdentifier,
             rowProps,
             infinite,
             sortFn,
@@ -47,6 +48,7 @@ export class TableContainer extends Component {
                         containerHeight={containerHeight}
                         containerScrollTop={containerScrollTop}
                         infinite={infinite}
+                        rowIdentifier={rowIdentifier}
                         skipFn={skipFn}
                         sortFn={sortFn}
                         { ...rowProps }
@@ -111,6 +113,7 @@ export class TableContainer extends Component {
             number
         ]),
         infinite: bool,
+        rowIdentifier: string,
         rowProps: object,
         skipFn: func,
         sortFn: func

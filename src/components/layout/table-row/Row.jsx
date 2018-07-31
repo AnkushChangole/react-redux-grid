@@ -221,6 +221,7 @@ export class Row extends Component {
         readFunc: func,
         reducerKeys: oneOfType([object, string]),
         row: object,
+        rowIdentifier: string,
         selectedRows: object,
         selectionModel: object,
         showTreeRootNode: bool,
@@ -733,9 +734,11 @@ const rowTarget = {
             gridType
         } = props;
 
-        const rowIdentifier = gridType === 'tree'
-            ? '_id'
-            : 'id';
+        const rowIdentifier = this.props.rowIdentifier
+            ? this.props.rowIdentifier
+            : gridType === 'tree'
+                ? '_id'
+                : 'id';
 
         const rowId = monitor.getItem()[rowIdentifier];
 

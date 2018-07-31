@@ -134,6 +134,7 @@ var Grid = exports.Grid = function (_Component) {
                 pageSize = _props.pageSize,
                 plugins = _props.plugins,
                 reducerKeys = _props.reducerKeys,
+                rowIdentifier = _props.rowIdentifier,
                 skipFn = _props.skipFn,
                 sortFn = _props.sortFn,
                 stateKey = _props.stateKey;
@@ -168,6 +169,7 @@ var Grid = exports.Grid = function (_Component) {
                     headerProps: this.getHeaderProps(false),
                     height: height,
                     infinite: infinite,
+                    rowIdentifier: rowIdentifier,
                     rowProps: this.getRowProps(),
                     skipFn: skipFn,
                     sortFn: sortFn
@@ -521,6 +523,7 @@ Grid.propTypes = {
     pager: object,
     plugins: object,
     reducerKeys: oneOfType([object, string]),
+    rowIdentifier: string,
     selectedRows: object,
     showTreeRootNode: bool,
     skipFn: func,
