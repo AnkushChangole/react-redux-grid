@@ -482,6 +482,14 @@ const rowSource = {
                 moveRowFlat(row, monitor.getItem());
             }
         }
+    },
+
+    canDrag(props, monitor) {
+        const _canDrag = props.canDrag;
+
+        return _canDrag
+            ? _canDrag(props.row, monitor.getItem())
+            : true;
     }
 };
 
@@ -720,14 +728,6 @@ const rowTarget = {
 
         return _canDrop
             ? _canDrop(props.row, monitor.getItem())
-            : true;
-    },
-
-    canDrag(props, monitor) {
-        const _canDrag = props.canDrag;
-
-        return _canDrag
-            ? _canDrag(props.row, monitor.getItem())
             : true;
     },
 

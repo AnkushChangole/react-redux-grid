@@ -470,6 +470,11 @@ var rowSource = {
                 moveRowFlat(row, monitor.getItem());
             }
         }
+    },
+    canDrag: function canDrag(props, monitor) {
+        var _canDrag = props.canDrag;
+
+        return _canDrag ? _canDrag(props.row, monitor.getItem()) : true;
     }
 };
 
@@ -658,11 +663,6 @@ var rowTarget = {
         var _canDrop = props.canDrop;
 
         return _canDrop ? _canDrop(props.row, monitor.getItem()) : true;
-    },
-    canDrag: function canDrag(props, monitor) {
-        var _canDrag = props.canDrag;
-
-        return _canDrag ? _canDrag(props.row, monitor.getItem()) : true;
     },
     drop: function drop(props, monitor) {
         var editor = props.editor,
