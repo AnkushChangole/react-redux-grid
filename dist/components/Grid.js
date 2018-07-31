@@ -123,6 +123,7 @@ var Grid = exports.Grid = function (_Component) {
             }
 
             var _props = this.props,
+                canDrag = _props.canDrag,
                 canDrop = _props.canDrop,
                 classNames = _props.classNames,
                 columnState = _props.columnState,
@@ -164,6 +165,7 @@ var Grid = exports.Grid = function (_Component) {
                     headerHidden: headerHidden
                 }, this.getHeaderProps(true))),
                 _react2.default.createElement(_TableContainer2.default, {
+                    canDrag: canDrag,
                     canDrop: canDrop,
                     editorComponent: editorComponent,
                     headerProps: this.getHeaderProps(false),
@@ -501,6 +503,7 @@ Grid.contextTypes = {
     store: object
 };
 Grid.propTypes = {
+    canDrag: func,
     canDrop: func,
     classNames: array,
     columnState: object,

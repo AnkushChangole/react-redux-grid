@@ -61,6 +61,7 @@ var TableContainer = exports.TableContainer = function (_Component) {
                 CLASS_NAMES = _gridConfig.CLASS_NAMES;
 
             var _props = this.props,
+                canDrag = _props.canDrag,
                 canDrop = _props.canDrop,
                 editorComponent = _props.editorComponent,
                 headerProps = _props.headerProps,
@@ -89,6 +90,7 @@ var TableContainer = exports.TableContainer = function (_Component) {
                     },
                     _react2.default.createElement(_Header2.default, headerProps),
                     _react2.default.createElement(_TableRow2.default, _extends({
+                        canDrag: canDrag,
                         canDrop: canDrop,
                         containerHeight: containerHeight,
                         containerScrollTop: containerScrollTop,
@@ -187,6 +189,7 @@ var TableContainer = exports.TableContainer = function (_Component) {
 }(_react.Component);
 
 TableContainer.propTypes = {
+    canDrag: func,
     canDrop: func,
     editorComponent: any,
     headerProps: object,

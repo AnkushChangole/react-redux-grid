@@ -718,11 +718,17 @@ const rowTarget = {
     canDrop(props, monitor) {
         const _canDrop = props.canDrop;
 
-        if (_canDrop) {
-            return _canDrop(props.row, monitor.getItem());
-        }
+        return _canDrop
+            ? _canDrop(props.row, monitor.getItem())
+            : true;
+    },
 
-        return true;
+    canDrag(props, monitor) {
+        const _canDrag = props.canDrag;
+
+        return _canDrag
+            ? _canDrag(props.row, monitor.getItem())
+            : true;
     },
 
     drop(props, monitor) {

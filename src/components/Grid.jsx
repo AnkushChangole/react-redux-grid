@@ -61,6 +61,7 @@ export class Grid extends Component {
         }
 
         const {
+            canDrag,
             canDrop,
             classNames,
             columnState,
@@ -112,6 +113,7 @@ export class Grid extends Component {
                     { ...this.getHeaderProps(true) }
                 />
                 <TableContainer
+                    canDrag={canDrag}
                     canDrop={canDrop}
                     editorComponent={editorComponent}
                     headerProps={this.getHeaderProps(false)}
@@ -227,6 +229,7 @@ export class Grid extends Component {
     }
 
     static propTypes = {
+        canDrag: func,
         canDrop: func,
         classNames: array,
         columnState: object,

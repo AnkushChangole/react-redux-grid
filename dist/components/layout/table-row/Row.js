@@ -657,11 +657,12 @@ var rowTarget = {
     canDrop: function canDrop(props, monitor) {
         var _canDrop = props.canDrop;
 
-        if (_canDrop) {
-            return _canDrop(props.row, monitor.getItem());
-        }
+        return _canDrop ? _canDrop(props.row, monitor.getItem()) : true;
+    },
+    canDrag: function canDrag(props, monitor) {
+        var _canDrag = props.canDrag;
 
-        return true;
+        return _canDrag ? _canDrag(props.row, monitor.getItem()) : true;
     },
     drop: function drop(props, monitor) {
         var editor = props.editor,

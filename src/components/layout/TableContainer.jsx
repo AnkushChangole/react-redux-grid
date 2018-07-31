@@ -16,6 +16,7 @@ export class TableContainer extends Component {
 
         const { CLASS_NAMES } = gridConfig();
         const {
+            canDrag,
             canDrop,
             editorComponent,
             headerProps,
@@ -44,6 +45,7 @@ export class TableContainer extends Component {
                 >
                     <Header { ...headerProps } />
                     <Row
+                        canDrag={canDrag}
                         canDrop={canDrop}
                         containerHeight={containerHeight}
                         containerScrollTop={containerScrollTop}
@@ -104,6 +106,7 @@ export class TableContainer extends Component {
     }
 
     static propTypes = {
+        canDrag: func,
         canDrop: func,
         editorComponent: any,
         headerProps: object,
