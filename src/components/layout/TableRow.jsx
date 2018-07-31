@@ -100,6 +100,7 @@ export class TableRow extends Component {
         plugins: object,
         readFunc: func,
         reducerKeys: oneOfType([object, string]),
+        rowIdentifier: string,
         selectedRows: object,
         selectionModel: object,
         showTreeRootNode: bool,
@@ -256,6 +257,7 @@ export class TableRow extends Component {
             readFunc={this.props.readFunc}
             reducerKeys={this.props.reducerKeys}
             row={row}
+            rowIdentifier={this.props.rowIdentifier}
             selectedRows={this.props.selectedRows}
             selectionModel={this.props.selectionModel}
             showTreeRootNode={this.props.showTreeRootNode}
