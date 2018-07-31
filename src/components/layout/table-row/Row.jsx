@@ -731,18 +731,19 @@ const rowTarget = {
             events,
             findRow,
             getTreeData,
-            gridType
+            gridType,
+            rowIdentifier
         } = props;
 
-        const rowIdentifier = this.props.rowIdentifier
-            ? this.props.rowIdentifier
+        const rowId = rowIdentifier
+            ? rowIdentifier
             : gridType === 'tree'
                 ? '_id'
                 : 'id';
 
-        const rowId = monitor.getItem()[rowIdentifier];
+        const targetId = monitor.getItem()[rowId];
 
-        const row = findRow(data => data.get(rowIdentifier) === rowId);
+        const row = findRow(data => data.get(rowIdentifier) === targetId);
 
         if (row) {
             fireEvent(

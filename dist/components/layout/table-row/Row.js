@@ -668,15 +668,16 @@ var rowTarget = {
             events = props.events,
             findRow = props.findRow,
             getTreeData = props.getTreeData,
-            gridType = props.gridType;
+            gridType = props.gridType,
+            rowIdentifier = props.rowIdentifier;
 
 
-        var rowIdentifier = this.props.rowIdentifier ? this.props.rowIdentifier : gridType === 'tree' ? '_id' : 'id';
+        var rowId = rowIdentifier ? rowIdentifier : gridType === 'tree' ? '_id' : 'id';
 
-        var rowId = monitor.getItem()[rowIdentifier];
+        var targetId = monitor.getItem()[rowId];
 
         var row = findRow(function (data) {
-            return data.get(rowIdentifier) === rowId;
+            return data.get(rowIdentifier) === targetId;
         });
 
         if (row) {
