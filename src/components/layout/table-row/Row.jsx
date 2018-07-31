@@ -471,6 +471,10 @@ const rowSource = {
         const { id, index, parentId, path } = getTreeData();
         const { _index, _parentId, _path } = monitor.getItem();
 
+        if (!monitor.canDrag()) {
+            return;
+        }
+
         if (!monitor.didDrop()) {
             if (gridType === 'tree') {
                 moveRow(
@@ -511,6 +515,10 @@ const getPathDataForTreeGrid = (hoverPath, monitor) => {
 
 const rowTarget = {
     hover(props, monitor, component) {
+        if (!monitor.canDrag()) {
+            return;
+        }
+
         const {
             gridType,
             events: hoverEvents,
