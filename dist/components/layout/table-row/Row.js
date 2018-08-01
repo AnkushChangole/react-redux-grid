@@ -479,7 +479,7 @@ var rowSource = {
     canDrag: function canDrag(props, monitor) {
         var _canDrag = props.canDrag;
 
-        return _canDrag ? _canDrag(props.row, monitor.getItem()) : true;
+        return _canDrag ? _canDrag(props.row) : true;
     }
 };
 
@@ -642,7 +642,7 @@ var rowTarget = {
                 return;
             }
 
-            if (_canDrag && !_canDrag(hoverRow, monitor.getItem())) {
+            if (_canDrag && !_canDrag(monitor.getItem())) {
                 return;
             }
 
@@ -664,7 +664,7 @@ var rowTarget = {
                 path: targetPath
             });
         } else if (_canDrop && _canDrop(hoverRow, monitor.getItem()) && monitor.canDrop()) {
-            if (!_canDrag || _canDrag && _canDrag(hoverRow, monitor.getItem())) {
+            if (!_canDrag || _canDrag && _canDrag(monitor.getItem())) {
                 props.moveRowFlat(hoverRow, monitor.getItem());
             }
         }

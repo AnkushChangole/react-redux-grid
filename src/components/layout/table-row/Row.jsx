@@ -493,7 +493,7 @@ const rowSource = {
         const _canDrag = props.canDrag;
 
         return _canDrag
-            ? _canDrag(props.row, monitor.getItem())
+            ? _canDrag(props.row)
             : true;
     }
 };
@@ -689,7 +689,7 @@ const rowTarget = {
                 return;
             }
 
-            if (_canDrag && !_canDrag(hoverRow, monitor.getItem())) {
+            if (_canDrag && !_canDrag(monitor.getItem())) {
                 return;
             }
 
@@ -727,7 +727,7 @@ const rowTarget = {
         ) {
             if (
                 !_canDrag ||
-                (_canDrag && _canDrag(hoverRow, monitor.getItem()))
+                (_canDrag && _canDrag(monitor.getItem()))
             ) {
                 props.moveRowFlat(
                     hoverRow, monitor.getItem()
