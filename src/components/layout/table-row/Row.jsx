@@ -138,6 +138,7 @@ export class Row extends Component {
                     events, row, id, selectionModel, index, isSelected, e
                 );
             },
+            canDrag: false,
             onDragStart: this.handleDragStart.bind(this)
         };
 
@@ -689,7 +690,7 @@ const rowTarget = {
                 return;
             }
 
-            if (_canDrag && !_canDrag(hoverRow)) {
+            if (_canDrag && !_canDrag(hoverRow, monitor.getItem())) {
                 return;
             }
 
@@ -725,9 +726,14 @@ const rowTarget = {
             _canDrop(hoverRow, monitor.getItem()) &&
             monitor.canDrop()
         ) {
-            props.moveRowFlat(
-                hoverRow, monitor.getItem()
-            );
+            if (
+                !_canDrag ||
+                (_canDrag && _canDrag(hoverRow, monitor.getItem()))
+            ) {
+                props.moveRowFlat(
+                    hoverRow, monitor.getItem()
+                );
+            }
         }
 
         monitor.getItem().lastX = mouseX;

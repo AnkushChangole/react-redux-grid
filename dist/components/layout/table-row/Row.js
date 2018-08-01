@@ -160,6 +160,7 @@ var Row = exports.Row = function (_Component) {
                 onDoubleClick: function onDoubleClick(e) {
                     handleRowDoubleClickEvent(events, row, id, selectionModel, index, isSelected, e);
                 },
+                canDrag: false,
                 onDragStart: this.handleDragStart.bind(this)
             };
 
@@ -642,7 +643,7 @@ var rowTarget = {
                 return;
             }
 
-            if (_canDrag && !_canDrag(hoverRow)) {
+            if (_canDrag && !_canDrag(hoverRow, monitor.getItem())) {
                 return;
             }
 
@@ -664,7 +665,9 @@ var rowTarget = {
                 path: targetPath
             });
         } else if (_canDrop && _canDrop(hoverRow, monitor.getItem()) && monitor.canDrop()) {
-            props.moveRowFlat(hoverRow, monitor.getItem());
+            if (!_canDrag || _canDrag && _canDrag(hoverRow, monitor.getItem())) {
+                props.moveRowFlat(hoverRow, monitor.getItem());
+            }
         }
 
         monitor.getItem().lastX = mouseX;
