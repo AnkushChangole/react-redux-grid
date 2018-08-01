@@ -160,7 +160,6 @@ var Row = exports.Row = function (_Component) {
                 onDoubleClick: function onDoubleClick(e) {
                     handleRowDoubleClickEvent(events, row, id, selectionModel, index, isSelected, e);
                 },
-                canDrag: false,
                 onDragStart: this.handleDragStart.bind(this)
             };
 

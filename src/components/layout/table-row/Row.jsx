@@ -138,7 +138,6 @@ export class Row extends Component {
                     events, row, id, selectionModel, index, isSelected, e
                 );
             },
-            canDrag: false,
             onDragStart: this.handleDragStart.bind(this)
         };
 
