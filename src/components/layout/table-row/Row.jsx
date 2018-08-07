@@ -721,8 +721,10 @@ const rowTarget = {
             );
         }
         else if (
-            _canDrop &&
-            _canDrop(hoverRow, monitor.getItem()) &&
+            (
+                !_canDrop ||
+                (_canDrop && _canDrop(hoverRow, monitor.getItem()))
+            ) &&
             monitor.canDrop()
         ) {
             if (

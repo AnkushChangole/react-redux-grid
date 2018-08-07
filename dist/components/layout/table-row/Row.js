@@ -663,7 +663,7 @@ var rowTarget = {
                 parentId: targetParentId,
                 path: targetPath
             });
-        } else if (_canDrop && _canDrop(hoverRow, monitor.getItem()) && monitor.canDrop()) {
+        } else if ((!_canDrop || _canDrop && _canDrop(hoverRow, monitor.getItem())) && monitor.canDrop()) {
             if (!_canDrag || _canDrag && _canDrag(monitor.getItem())) {
                 props.moveRowFlat(hoverRow, monitor.getItem());
             }
