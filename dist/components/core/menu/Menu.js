@@ -72,7 +72,10 @@ var Menu = function (_Component) {
                 menuProps.style.maxHeight = maxHeight - 20;
             }
 
-            var items = getUniqueItems(menu);
+            var items = getUniqueItems(menu).filter(function (item) {
+                return item.props.column.hideable !== false && item.props.column.showable !== false;
+            });
+
             var menuItems = items && items.length > 0 ? items.map(function (item) {
                 if (!item.$$typeof) {
                     var menuItemProps = {
