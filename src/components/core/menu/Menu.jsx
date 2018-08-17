@@ -28,7 +28,11 @@ class Menu extends Component {
             menuProps.style.maxHeight = (maxHeight - 20);
         }
 
-        const items = getUniqueItems(menu);
+        const items = getUniqueItems(menu).filter((item) => (
+            item.props.column.hideable !== false &&
+            item.props.column.showable !== false
+        ));
+
         const menuItems = items && items.length > 0
             ? items.map(item => {
                 if (!item.$$typeof) {
