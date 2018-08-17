@@ -72,9 +72,15 @@ var Menu = function (_Component) {
                 menuProps.style.maxHeight = maxHeight - 20;
             }
 
-            var items = getUniqueItems(menu).filter(function (item) {
+            var uniqueItems = getUniqueItems(menu);
+
+            var items = uniqueItems && uniqueItems.length > 0 ? uniqueItems.filter(function (item) {
+                if (!item.props || !item.props.column) {
+                    return true;
+                }
+
                 return item.props.column.hideable !== false && item.props.column.showable !== false;
-            });
+            }) : [];
 
             var menuItems = items && items.length > 0 ? items.map(function (item) {
                 if (!item.$$typeof) {
