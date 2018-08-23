@@ -690,7 +690,7 @@ var rowTarget = {
         var targetId = monitor.getItem()[rowId];
 
         var row = findRow(function (data) {
-            return data.get(rowIdentifier) === targetId;
+            return data.get(rowId) === targetId;
         });
 
         if (row) {

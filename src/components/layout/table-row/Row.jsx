@@ -766,7 +766,7 @@ const rowTarget = {
 
         const targetId = monitor.getItem()[rowId];
 
-        const row = findRow(data => data.get(rowIdentifier) === targetId);
+        const row = findRow(data => data.get(rowId) === targetId);
 
         if (row) {
             fireEvent(
