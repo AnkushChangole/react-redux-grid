@@ -37,6 +37,10 @@ var Menu = exports.Menu = function Menu(_ref) {
 
     if (editor.config.enabled && type !== 'header') {
         actions.menu.unshift(getEditAction(editor, store, rowId, rowData, rowIndex, columns, stateKey));
+
+        if (editor.config.hideEditAction) {
+            actions.menu.shift();
+        }
     }
 
     var menuProps = _extends({}, actions, {
