@@ -23,6 +23,8 @@ export class TableContainer extends Component {
             height,
             rowIdentifier,
             rowProps,
+            onDragStart,
+            onRowDidNotDrop,
             infinite,
             sortFn,
             skipFn
@@ -50,6 +52,8 @@ export class TableContainer extends Component {
                         containerHeight={containerHeight}
                         containerScrollTop={containerScrollTop}
                         infinite={infinite}
+                        onDragStart={onDragStart}
+                        onRowDidNotDrop={onRowDidNotDrop}
                         rowIdentifier={rowIdentifier}
                         skipFn={skipFn}
                         sortFn={sortFn}
@@ -116,6 +120,8 @@ export class TableContainer extends Component {
             number
         ]),
         infinite: bool,
+        onDragStart: func,
+        onRowDidNotDrop: func,
         rowIdentifier: string,
         rowProps: object,
         skipFn: func,
