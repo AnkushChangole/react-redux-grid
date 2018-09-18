@@ -478,10 +478,6 @@ const rowSource = {
         const { id, index, parentId, path } = getTreeData();
         const { _index, _parentId, _path } = monitor.getItem();
 
-        if (!monitor.canDrag()) {
-            return;
-        }
-
         if (!monitor.didDrop()) {
             if (gridType === 'tree') {
                 moveRow(

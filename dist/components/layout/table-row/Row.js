@@ -473,10 +473,6 @@ var rowSource = {
             _parentId = _monitor$getItem._parentId,
             _path = _monitor$getItem._path;
 
-        if (!monitor.canDrag()) {
-            return;
-        }
-
         if (!monitor.didDrop()) {
             if (gridType === 'tree') {
                 moveRow({ id: id, index: index, parentId: parentId, path: path }, { index: _index, parentId: _parentId, path: _path });
