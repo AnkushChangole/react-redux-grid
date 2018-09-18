@@ -456,10 +456,8 @@ var rowSource = {
     },
     endDrag: function endDrag(_ref2, monitor) {
         var onRowDidNotDrop = _ref2.onRowDidNotDrop,
-            row = _ref2.row,
             getTreeData = _ref2.getTreeData,
             moveRow = _ref2.moveRow,
-            moveRowFlat = _ref2.moveRowFlat,
             gridType = _ref2.gridType;
 
         var _getTreeData = getTreeData(),
@@ -473,14 +471,14 @@ var rowSource = {
             _parentId = _monitor$getItem._parentId,
             _path = _monitor$getItem._path;
 
+        if (!monitor.didDrop() && onRowDidNotDrop) {
+            onRowDidNotDrop();
+        }
+
         if (!monitor.didDrop()) {
             if (gridType === 'tree') {
                 moveRow({ id: id, index: index, parentId: parentId, path: path }, { index: _index, parentId: _parentId, path: _path });
-            } else {
-                moveRowFlat(row, monitor.getItem());
             }
-        } else if (onRowDidNotDrop) {
-            onRowDidNotDrop();
         }
     },
     canDrag: function canDrag(props, monitor) {

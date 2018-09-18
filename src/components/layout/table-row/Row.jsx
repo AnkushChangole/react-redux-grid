@@ -474,9 +474,18 @@ const rowSource = {
 
         return row.toJS();
     },
-    endDrag({ onRowDidNotDrop, row, getTreeData, moveRow, moveRowFlat, gridType }, monitor) {
+    endDrag({
+        onRowDidNotDrop,
+        getTreeData,
+        moveRow,
+        gridType
+    }, monitor) {
         const { id, index, parentId, path } = getTreeData();
         const { _index, _parentId, _path } = monitor.getItem();
+
+        if (!monitor.didDrop() && onRowDidNotDrop) {
+            onRowDidNotDrop();
+        }
 
         if (!monitor.didDrop()) {
             if (gridType === 'tree') {
@@ -485,12 +494,6 @@ const rowSource = {
                     { index: _index, parentId: _parentId, path: _path }
                 );
             }
-            else {
-                moveRowFlat(row, monitor.getItem());
-            }
-        }
-        else if (onRowDidNotDrop) {
-            onRowDidNotDrop();
         }
     },
 
