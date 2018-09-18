@@ -215,6 +215,8 @@ export class Row extends Component {
         isDragging: bool,
         menuState: object,
         nextRow: object,
+        onDragStart: func,
+        onRowDidNotDrop: func,
         pageSize: number,
         pager: object,
         plugins: object,
@@ -240,7 +242,11 @@ export class Row extends Component {
     };
 
     handleDragStart(e) {
-        const { row } = this.props;
+        const { onDragStart, row } = this.props;
+
+        if (onDragStart) {
+            onDragStart();
+        }
 
         // this has nothing to do with grid drag and drop
         // only use is setting meta data for custom drop events
@@ -468,12 +474,17 @@ const rowSource = {
 
         return row.toJS();
     },
-    endDrag({ row, getTreeData, moveRow, moveRowFlat, gridType }, monitor) {
+    endDrag({
+        onRowDidNotDrop,
+        getTreeData,
+        moveRow,
+        gridType
+    }, monitor) {
         const { id, index, parentId, path } = getTreeData();
         const { _index, _parentId, _path } = monitor.getItem();
 
-        if (!monitor.canDrag()) {
-            return;
+        if (!monitor.didDrop() && onRowDidNotDrop) {
+            onRowDidNotDrop();
         }
 
         if (!monitor.didDrop()) {
@@ -482,9 +493,6 @@ const rowSource = {
                     { id, index, parentId, path },
                     { index: _index, parentId: _parentId, path: _path }
                 );
-            }
-            else {
-                moveRowFlat(row, monitor.getItem());
             }
         }
     },

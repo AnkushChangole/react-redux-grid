@@ -96,6 +96,8 @@ export class TableRow extends Component {
         gridType: GRID_TYPES,
         infinite: bool,
         menuState: object,
+        onDragStart: func,
+        onRowDidNotDrop: func,
         pageSize: number,
         pager: object,
         plugins: object,
@@ -254,6 +256,8 @@ export class TableRow extends Component {
             moveRow={this.moveRow}
             moveRowFlat={this.moveRowFlat}
             nextRow={rows.get(index + 1)}
+            onDragStart={this.props.onDragStart}
+            onRowDidNotDrop={this.props.onRowDidNotDrop}
             plugins={this.props.plugins}
             previousRow={rows.get(index - 1)}
             readFunc={this.props.readFunc}

@@ -69,6 +69,8 @@ export class Grid extends Component {
             gridData,
             height,
             infinite,
+            onDragStart,
+            onRowDidNotDrop,
             pager,
             pageSize,
             plugins,
@@ -119,6 +121,8 @@ export class Grid extends Component {
                     headerProps={this.getHeaderProps(false)}
                     height={height}
                     infinite={infinite}
+                    onDragStart={onDragStart}
+                    onRowDidNotDrop={onRowDidNotDrop}
                     rowIdentifier={rowIdentifier}
                     rowProps={this.getRowProps()}
                     skipFn={skipFn}
@@ -255,6 +259,8 @@ export class Grid extends Component {
         infinite: bool,
         loadingState: object,
         menuState: object,
+        onDragStart: func,
+        onRowDidNotDrop: func,
         pageSize: number,
         pager: object,
         plugins: object,

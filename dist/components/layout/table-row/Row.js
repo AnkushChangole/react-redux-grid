@@ -220,12 +220,18 @@ var Row = exports.Row = function (_Component) {
     _createClass(Row, [{
         key: 'handleDragStart',
         value: function handleDragStart(e) {
-            var row = this.props.row;
+            var _props2 = this.props,
+                onDragStart = _props2.onDragStart,
+                row = _props2.row;
+
+
+            if (onDragStart) {
+                onDragStart();
+            }
 
             // this has nothing to do with grid drag and drop
             // only use is setting meta data for custom drop events
             // per issue #59
-
             e.dataTransfer.setData('text/plain', JSON.stringify({
                 id: row.get('_key'),
                 data: row.toJS()
@@ -257,6 +263,8 @@ Row.propTypes = {
     isDragging: bool,
     menuState: object,
     nextRow: object,
+    onDragStart: func,
+    onRowDidNotDrop: func,
     pageSize: number,
     pager: object,
     plugins: object,
@@ -447,10 +455,9 @@ var rowSource = {
         return row.toJS();
     },
     endDrag: function endDrag(_ref2, monitor) {
-        var row = _ref2.row,
+        var onRowDidNotDrop = _ref2.onRowDidNotDrop,
             getTreeData = _ref2.getTreeData,
             moveRow = _ref2.moveRow,
-            moveRowFlat = _ref2.moveRowFlat,
             gridType = _ref2.gridType;
 
         var _getTreeData = getTreeData(),
@@ -464,15 +471,13 @@ var rowSource = {
             _parentId = _monitor$getItem._parentId,
             _path = _monitor$getItem._path;
 
-        if (!monitor.canDrag()) {
-            return;
+        if (!monitor.didDrop() && onRowDidNotDrop) {
+            onRowDidNotDrop();
         }
 
         if (!monitor.didDrop()) {
             if (gridType === 'tree') {
                 moveRow({ id: id, index: index, parentId: parentId, path: path }, { index: _index, parentId: _parentId, path: _path });
-            } else {
-                moveRowFlat(row, monitor.getItem());
             }
         }
     },
