@@ -68,6 +68,8 @@ var TableContainer = exports.TableContainer = function (_Component) {
                 height = _props.height,
                 rowIdentifier = _props.rowIdentifier,
                 rowProps = _props.rowProps,
+                onDragStart = _props.onDragStart,
+                onRowDidNotDrop = _props.onRowDidNotDrop,
                 infinite = _props.infinite,
                 sortFn = _props.sortFn,
                 skipFn = _props.skipFn;
@@ -95,6 +97,8 @@ var TableContainer = exports.TableContainer = function (_Component) {
                         containerHeight: containerHeight,
                         containerScrollTop: containerScrollTop,
                         infinite: infinite,
+                        onDragStart: onDragStart,
+                        onRowDidNotDrop: onRowDidNotDrop,
                         rowIdentifier: rowIdentifier,
                         skipFn: skipFn,
                         sortFn: sortFn
@@ -195,6 +199,8 @@ TableContainer.propTypes = {
     headerProps: object,
     height: oneOfType([bool, string, number]),
     infinite: bool,
+    onDragStart: func,
+    onRowDidNotDrop: func,
     rowIdentifier: string,
     rowProps: object,
     skipFn: func,

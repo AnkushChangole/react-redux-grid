@@ -220,12 +220,18 @@ var Row = exports.Row = function (_Component) {
     _createClass(Row, [{
         key: 'handleDragStart',
         value: function handleDragStart(e) {
-            var row = this.props.row;
+            var _props2 = this.props,
+                onDragStart = _props2.onDragStart,
+                row = _props2.row;
+
+
+            if (onDragStart) {
+                onDragStart();
+            }
 
             // this has nothing to do with grid drag and drop
             // only use is setting meta data for custom drop events
             // per issue #59
-
             e.dataTransfer.setData('text/plain', JSON.stringify({
                 id: row.get('_key'),
                 data: row.toJS()
@@ -257,6 +263,8 @@ Row.propTypes = {
     isDragging: bool,
     menuState: object,
     nextRow: object,
+    onDragStart: func,
+    onRowDidNotDrop: func,
     pageSize: number,
     pager: object,
     plugins: object,
@@ -447,7 +455,8 @@ var rowSource = {
         return row.toJS();
     },
     endDrag: function endDrag(_ref2, monitor) {
-        var row = _ref2.row,
+        var onRowDidNotDrop = _ref2.onRowDidNotDrop,
+            row = _ref2.row,
             getTreeData = _ref2.getTreeData,
             moveRow = _ref2.moveRow,
             moveRowFlat = _ref2.moveRowFlat,
@@ -474,6 +483,8 @@ var rowSource = {
             } else {
                 moveRowFlat(row, monitor.getItem());
             }
+        } else if (onRowDidNotDrop) {
+            onRowDidNotDrop();
         }
     },
     canDrag: function canDrag(props, monitor) {
