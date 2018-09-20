@@ -184,7 +184,9 @@ var handleDrop = exports.handleDrop = function handleDrop(droppedIndex, columns,
     try {
         var colData = reactEvent && reactEvent.dataTransfer.getData ? JSON.parse(reactEvent.dataTransfer.getData('Text')) : null;
 
-        if (colData) {
+        if (columns.find(function (item) {
+            return item.moveable === true;
+        }) && colData) {
             store.dispatch((0, _ColumnManager.reorderColumn)({
                 draggedIndex: colData.index,
                 droppedIndex: droppedIndex,

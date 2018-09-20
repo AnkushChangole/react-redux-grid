@@ -13,7 +13,6 @@ import getUpdatedRecord from './../../util/getUpdatedRecord';
 export const setData = (state, {
     currentRecords, data, gridType, stateKey, treeData, total
 }) => {
-
     const keyedData = setKeysInData(data);
     let keyedCurr;
 
@@ -203,6 +202,32 @@ export const moveNode = (state, {
         currentRecords: flatMove,
         treeData: newTreeMove,
         proxy: flatMove,
+        lastUpdate: generateLastUpdate()
+    }, DataSource, 'mergeIn');
+};
+
+export const moveNodeFlat = (state, {
+    hoverRow, grabbedRow, stateKey, sortFn, skipFn
+}) => {
+    const currentData = state.getIn([stateKey, 'data']);
+
+    const currentIdx = hoverRow.get('_index');
+    const previousIdx = grabbedRow.index;
+
+    const tmp = currentData.get(previousIdx);
+
+    const newData = sortFn
+        ? sortFn(currentData, currentIdx, previousIdx, skipFn)
+        : currentData
+            .remove(previousIdx)
+            .insert(currentIdx, tmp);
+
+    grabbedRow.index = currentIdx;
+
+    return getUpdatedRecord(state, stateKey, {
+        data: newData,
+        currentRecords: newData,
+        proxy: newData,
         lastUpdate: generateLastUpdate()
     }, DataSource, 'mergeIn');
 };

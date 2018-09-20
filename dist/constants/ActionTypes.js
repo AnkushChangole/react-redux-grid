@@ -50,6 +50,7 @@ var DISMISS_EDITOR = exports.DISMISS_EDITOR = '@@react-redux-grid/DISMISS_EDITOR
 var REMOVE_TOOLBAR = exports.REMOVE_TOOLBAR = '@@react-redux-grid/REMOVE_TOOLBAR';
 
 var MOVE_NODE = exports.MOVE_NODE = '@@react-redux-grid/MOVE_NODE';
+var MOVE_NODE_FLAT = exports.MOVE_NODE_FLAT = '@@react-redux-grid/MOVE_NODE_FLAT';
 
 var SET_TREE_NODE_VISIBILITY = exports.SET_TREE_NODE_VISIBILITY = '@@react-redux-grid/SET_TREE_NODE_VISIBILITY';
 
@@ -130,6 +131,8 @@ var _temp = function () {
     __REACT_HOT_LOADER__.register(REMOVE_TOOLBAR, 'REMOVE_TOOLBAR', 'src/constants/ActionTypes.js');
 
     __REACT_HOT_LOADER__.register(MOVE_NODE, 'MOVE_NODE', 'src/constants/ActionTypes.js');
+
+    __REACT_HOT_LOADER__.register(MOVE_NODE_FLAT, 'MOVE_NODE_FLAT', 'src/constants/ActionTypes.js');
 
     __REACT_HOT_LOADER__.register(SET_TREE_NODE_VISIBILITY, 'SET_TREE_NODE_VISIBILITY', 'src/constants/ActionTypes.js');
 

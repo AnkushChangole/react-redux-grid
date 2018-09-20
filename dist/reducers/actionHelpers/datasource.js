@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.filterData = exports.clearFilter = exports.sortData = exports.insertRow = exports.saveRow = exports.setTreeNodeVisibility = exports.moveNode = exports.addNewRow = exports.updateRow = exports.removeRow = exports.dismissEditor = exports.setPartialTreeData = exports.setData = undefined;
+exports.filterData = exports.clearFilter = exports.sortData = exports.insertRow = exports.saveRow = exports.setTreeNodeVisibility = exports.moveNodeFlat = exports.moveNode = exports.addNewRow = exports.updateRow = exports.removeRow = exports.dismissEditor = exports.setPartialTreeData = exports.setData = undefined;
 
 var _arrayFrom = require('array-from');
 
@@ -40,7 +40,6 @@ var setData = exports.setData = function setData(state, _ref) {
         stateKey = _ref.stateKey,
         treeData = _ref.treeData,
         total = _ref.total;
-
 
     var keyedData = (0, _getData.setKeysInData)(data);
     var keyedCurr = void 0;
@@ -225,10 +224,36 @@ var moveNode = exports.moveNode = function moveNode(state, _ref7) {
     }, _records.DataSource, 'mergeIn');
 };
 
-var setTreeNodeVisibility = exports.setTreeNodeVisibility = function setTreeNodeVisibility(state, _ref8) {
-    var id = _ref8.id,
-        showTreeRootNode = _ref8.showTreeRootNode,
-        stateKey = _ref8.stateKey;
+var moveNodeFlat = exports.moveNodeFlat = function moveNodeFlat(state, _ref8) {
+    var hoverRow = _ref8.hoverRow,
+        grabbedRow = _ref8.grabbedRow,
+        stateKey = _ref8.stateKey,
+        sortFn = _ref8.sortFn,
+        skipFn = _ref8.skipFn;
+
+    var currentData = state.getIn([stateKey, 'data']);
+
+    var currentIdx = hoverRow.get('_index');
+    var previousIdx = grabbedRow.index;
+
+    var tmp = currentData.get(previousIdx);
+
+    var newData = sortFn ? sortFn(currentData, currentIdx, previousIdx, skipFn) : currentData.remove(previousIdx).insert(currentIdx, tmp);
+
+    grabbedRow.index = currentIdx;
+
+    return (0, _getUpdatedRecord2.default)(state, stateKey, {
+        data: newData,
+        currentRecords: newData,
+        proxy: newData,
+        lastUpdate: (0, _lastUpdate.generateLastUpdate)()
+    }, _records.DataSource, 'mergeIn');
+};
+
+var setTreeNodeVisibility = exports.setTreeNodeVisibility = function setTreeNodeVisibility(state, _ref9) {
+    var id = _ref9.id,
+        showTreeRootNode = _ref9.showTreeRootNode,
+        stateKey = _ref9.stateKey;
 
 
     var flat = state.getIn([stateKey, 'data']);
@@ -258,10 +283,10 @@ var setTreeNodeVisibility = exports.setTreeNodeVisibility = function setTreeNode
     }, _records.DataSource, 'mergeIn');
 };
 
-var saveRow = exports.saveRow = function saveRow(state, _ref9) {
-    var rowIndex = _ref9.rowIndex,
-        stateKey = _ref9.stateKey,
-        values = _ref9.values;
+var saveRow = exports.saveRow = function saveRow(state, _ref10) {
+    var rowIndex = _ref10.rowIndex,
+        stateKey = _ref10.stateKey,
+        values = _ref10.values;
 
     var data = state.getIn([stateKey, 'data']).set(rowIndex, (0, _immutable.fromJS)(values));
 
@@ -273,10 +298,10 @@ var saveRow = exports.saveRow = function saveRow(state, _ref9) {
     }, _records.DataSource, 'mergeIn');
 };
 
-var insertRow = exports.insertRow = function insertRow(state, _ref10) {
-    var data = _ref10.data,
-        index = _ref10.index,
-        stateKey = _ref10.stateKey;
+var insertRow = exports.insertRow = function insertRow(state, _ref11) {
+    var data = _ref11.data,
+        index = _ref11.index,
+        stateKey = _ref11.stateKey;
 
     var prevData = state.getIn([stateKey, 'data']);
     var newData = prevData ? prevData.insert(index, (0, _immutable.fromJS)(data)) : new _immutable.List((0, _immutable.fromJS)(data));
@@ -290,17 +315,17 @@ var insertRow = exports.insertRow = function insertRow(state, _ref10) {
     }, _records.DataSource, 'mergeIn');
 };
 
-var sortData = exports.sortData = function sortData(state, _ref11) {
-    var data = _ref11.data,
-        stateKey = _ref11.stateKey;
+var sortData = exports.sortData = function sortData(state, _ref12) {
+    var data = _ref12.data,
+        stateKey = _ref12.stateKey;
     return (0, _getUpdatedRecord2.default)(state, stateKey, {
         data: data,
         lastUpdate: (0, _lastUpdate.generateLastUpdate)()
     }, _records.DataSource, 'mergeIn');
 };
 
-var clearFilter = exports.clearFilter = function clearFilter(state, _ref12) {
-    var stateKey = _ref12.stateKey;
+var clearFilter = exports.clearFilter = function clearFilter(state, _ref13) {
+    var stateKey = _ref13.stateKey;
 
     var proxy = state.getIn([stateKey, 'proxy']);
     var prevData = state.getIn([stateKey, 'data']);
@@ -314,9 +339,9 @@ var clearFilter = exports.clearFilter = function clearFilter(state, _ref12) {
     }, _records.DataSource, 'mergeIn');
 };
 
-var filterData = exports.filterData = function filterData(state, _ref13) {
-    var data = _ref13.data,
-        stateKey = _ref13.stateKey;
+var filterData = exports.filterData = function filterData(state, _ref14) {
+    var data = _ref14.data,
+        stateKey = _ref14.stateKey;
     return (0, _getUpdatedRecord2.default)(state, stateKey, {
         data: data,
         lastUpdate: (0, _lastUpdate.generateLastUpdate)()
@@ -342,6 +367,8 @@ var _temp = function () {
     __REACT_HOT_LOADER__.register(addNewRow, 'addNewRow', 'src/reducers/actionHelpers/datasource.js');
 
     __REACT_HOT_LOADER__.register(moveNode, 'moveNode', 'src/reducers/actionHelpers/datasource.js');
+
+    __REACT_HOT_LOADER__.register(moveNodeFlat, 'moveNodeFlat', 'src/reducers/actionHelpers/datasource.js');
 
     __REACT_HOT_LOADER__.register(setTreeNodeVisibility, 'setTreeNodeVisibility', 'src/reducers/actionHelpers/datasource.js');
 

@@ -96,6 +96,7 @@ var any = _propTypes2.default.any,
     array = _propTypes2.default.array,
     arrayOf = _propTypes2.default.arrayOf,
     bool = _propTypes2.default.bool,
+    func = _propTypes2.default.func,
     object = _propTypes2.default.object,
     oneOf = _propTypes2.default.oneOf,
     oneOfType = _propTypes2.default.oneOfType,
@@ -122,16 +123,23 @@ var Grid = exports.Grid = function (_Component) {
             }
 
             var _props = this.props,
+                canDrag = _props.canDrag,
+                canDrop = _props.canDrop,
                 classNames = _props.classNames,
                 columnState = _props.columnState,
                 dataSource = _props.dataSource,
                 gridData = _props.gridData,
                 height = _props.height,
                 infinite = _props.infinite,
+                onDragStart = _props.onDragStart,
+                onRowDidNotDrop = _props.onRowDidNotDrop,
                 pager = _props.pager,
                 pageSize = _props.pageSize,
                 plugins = _props.plugins,
                 reducerKeys = _props.reducerKeys,
+                rowIdentifier = _props.rowIdentifier,
+                skipFn = _props.skipFn,
+                sortFn = _props.sortFn,
                 stateKey = _props.stateKey;
 
 
@@ -159,11 +167,18 @@ var Grid = exports.Grid = function (_Component) {
                     headerHidden: headerHidden
                 }, this.getHeaderProps(true))),
                 _react2.default.createElement(_TableContainer2.default, {
+                    canDrag: canDrag,
+                    canDrop: canDrop,
                     editorComponent: editorComponent,
                     headerProps: this.getHeaderProps(false),
                     height: height,
                     infinite: infinite,
-                    rowProps: this.getRowProps()
+                    onDragStart: onDragStart,
+                    onRowDidNotDrop: onRowDidNotDrop,
+                    rowIdentifier: rowIdentifier,
+                    rowProps: this.getRowProps(),
+                    skipFn: skipFn,
+                    sortFn: sortFn
                 }),
                 _react2.default.createElement(_Pager2.default, {
                     dataSource: dataSource,
@@ -492,6 +507,8 @@ Grid.contextTypes = {
     store: object
 };
 Grid.propTypes = {
+    canDrag: func,
+    canDrop: func,
     classNames: array,
     columnState: object,
     columns: arrayOf(object).isRequired,
@@ -509,12 +526,17 @@ Grid.propTypes = {
     infinite: bool,
     loadingState: object,
     menuState: object,
+    onDragStart: func,
+    onRowDidNotDrop: func,
     pageSize: number,
     pager: object,
     plugins: object,
     reducerKeys: oneOfType([object, string]),
+    rowIdentifier: string,
     selectedRows: object,
     showTreeRootNode: bool,
+    skipFn: func,
+    sortFn: func,
     stateKey: string,
     stateful: bool,
     store: object
@@ -549,6 +571,8 @@ var _temp = function () {
     __REACT_HOT_LOADER__.register(arrayOf, 'arrayOf', 'src/components/Grid.jsx');
 
     __REACT_HOT_LOADER__.register(bool, 'bool', 'src/components/Grid.jsx');
+
+    __REACT_HOT_LOADER__.register(func, 'func', 'src/components/Grid.jsx');
 
     __REACT_HOT_LOADER__.register(object, 'object', 'src/components/Grid.jsx');
 

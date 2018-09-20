@@ -136,6 +136,10 @@ var TableRow = exports.TableRow = function (_Component) {
             return _this.__moveRow__REACT_HOT_LOADER__.apply(_this, arguments);
         };
 
+        _this.moveRowFlat = function () {
+            return _this.__moveRowFlat__REACT_HOT_LOADER__.apply(_this, arguments);
+        };
+
         _this.rowSelection = function () {
             return _this.__rowSelection__REACT_HOT_LOADER__.apply(_this, arguments);
         };
@@ -196,6 +200,8 @@ var TableRow = exports.TableRow = function (_Component) {
 
             return function (row, index, rows) {
                 return _react2.default.createElement(_Row2.default, {
+                    canDrag: _this2.props.canDrag,
+                    canDrop: _this2.props.canDrop,
                     columnManager: _this2.props.columnManager,
                     columns: _this2.props.columns,
                     dragAndDrop: _this2.props.dragAndDrop,
@@ -209,12 +215,16 @@ var TableRow = exports.TableRow = function (_Component) {
                     key: (0, _getData.getRowKey)(_this2.props.columns, row),
                     menuState: _this2.props.menuState,
                     moveRow: _this2.moveRow,
+                    moveRowFlat: _this2.moveRowFlat,
                     nextRow: rows.get(index + 1),
+                    onDragStart: _this2.props.onDragStart,
+                    onRowDidNotDrop: _this2.props.onRowDidNotDrop,
                     plugins: _this2.props.plugins,
                     previousRow: rows.get(index - 1),
                     readFunc: _this2.props.readFunc,
                     reducerKeys: _this2.props.reducerKeys,
                     row: row,
+                    rowIdentifier: _this2.props.rowIdentifier,
                     selectedRows: _this2.props.selectedRows,
                     selectionModel: _this2.props.selectionModel,
                     showTreeRootNode: _this2.props.showTreeRootNode,
@@ -250,14 +260,43 @@ var TableRow = exports.TableRow = function (_Component) {
             return (0, _getCurrentRecords.getCurrentRecords)(dataSource, pager && pager.pageIndex ? pager.pageIndex : 0, pageSize, infinite, viewableIndex, viewableCount, _GridConstants.BUFFER_MULTIPLIER).data;
         }
     }, {
-        key: '__moveRow__REACT_HOT_LOADER__',
-        value: function __moveRow__REACT_HOT_LOADER__(current, next) {
+        key: '__moveRowFlat__REACT_HOT_LOADER__',
+        value: function __moveRowFlat__REACT_HOT_LOADER__(hoverRow, grabbedRow) {
             var _this3 = this;
 
             var _props2 = this.props,
                 stateKey = _props2.stateKey,
                 store = _props2.store,
-                showTreeRootNode = _props2.showTreeRootNode;
+                showTreeRootNode = _props2.showTreeRootNode,
+                sortFn = _props2.sortFn,
+                skipFn = _props2.skipFn;
+
+
+            if (!this.requestedFrame) {
+                this.requestedFrame = requestAnimationFrame(function () {
+                    store.dispatch((0, _GridActions.moveNodeFlat)({
+                        stateKey: stateKey,
+                        store: store,
+                        hoverRow: hoverRow,
+                        grabbedRow: grabbedRow,
+                        showTreeRootNode: showTreeRootNode,
+                        sortFn: sortFn,
+                        skipFn: skipFn
+                    }));
+                    _this3.requestedFrame = null;
+                });
+            }
+        }
+    }, {
+        key: '__moveRow__REACT_HOT_LOADER__',
+        value: function __moveRow__REACT_HOT_LOADER__(current, next) {
+            var _this4 = this;
+
+            var _props3 = this.props,
+                stateKey = _props3.stateKey,
+                store = _props3.store,
+                showTreeRootNode = _props3.showTreeRootNode;
+
 
             if (!this.requestedFrame) {
                 this.requestedFrame = requestAnimationFrame(function () {
@@ -268,7 +307,7 @@ var TableRow = exports.TableRow = function (_Component) {
                         next: next,
                         showTreeRootNode: showTreeRootNode
                     }));
-                    _this3.requestedFrame = null;
+                    _this4.requestedFrame = null;
                 });
             }
         }
@@ -323,6 +362,8 @@ var TableRow = exports.TableRow = function (_Component) {
 }(_react.Component);
 
 TableRow.propTypes = {
+    canDrag: func,
+    canDrop: func,
     columnManager: object.isRequired,
     columns: arrayOf(object).isRequired,
     containerHeight: number,
@@ -337,14 +378,19 @@ TableRow.propTypes = {
     gridType: _GridConstants.GRID_TYPES,
     infinite: bool,
     menuState: object,
+    onDragStart: func,
+    onRowDidNotDrop: func,
     pageSize: number,
     pager: object,
     plugins: object,
     readFunc: func,
     reducerKeys: oneOfType([object, string]),
+    rowIdentifier: string,
     selectedRows: object,
     selectionModel: object,
     showTreeRootNode: bool,
+    skipFn: func,
+    sortFn: func,
     stateKey: string,
     stateful: bool,
     store: object.isRequired

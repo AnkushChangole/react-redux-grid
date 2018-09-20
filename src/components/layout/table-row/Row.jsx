@@ -13,7 +13,16 @@ import { fireEvent } from '../../../util/fire';
 import { getData, getRowKey } from '../../../util/getData';
 import { gridConfig } from '../../../constants/GridConstants';
 
-const { arrayOf, bool, func, object, string, oneOf, number, oneOfType } = PropTypes;
+const {
+    arrayOf,
+    bool,
+    func,
+    object,
+    string,
+    oneOf,
+    number,
+    oneOfType
+} = PropTypes;
 
 const DRAG_INCREMENT = 15;
 
@@ -161,11 +170,12 @@ export class Row extends Component {
 
         if (isPluginEnabled(plugins, 'ROW') &&
           typeof plugins.ROW.renderer === 'function') {
-        	// super important that we pass rowProps and cells
-        	// since the user is almost certainly going to want both
-        	// lets make sure this gets documented
+            // super important that we pass rowProps and cells
+            // since the user is almost certainly going to want both
+            // lets make sure this gets documented
             rowEl = plugins.ROW.renderer({ rowProps, cells, row });
-        } else {
+        }
+        else {
             rowEl = (
                 <tr { ...rowProps }>
                     { cells }
@@ -185,6 +195,7 @@ export class Row extends Component {
     }
 
     static propTypes = {
+        canDrag: func,
         columnManager: object.isRequired,
         columns: arrayOf(object).isRequired,
         connectDragSource: func,
@@ -204,6 +215,8 @@ export class Row extends Component {
         isDragging: bool,
         menuState: object,
         nextRow: object,
+        onDragStart: func,
+        onRowDidNotDrop: func,
         pageSize: number,
         pager: object,
         plugins: object,
@@ -211,6 +224,7 @@ export class Row extends Component {
         readFunc: func,
         reducerKeys: oneOfType([object, string]),
         row: object,
+        rowIdentifier: string,
         selectedRows: object,
         selectionModel: object,
         showTreeRootNode: bool,
@@ -228,7 +242,11 @@ export class Row extends Component {
     };
 
     handleDragStart(e) {
-        const { row } = this.props;
+        const { onDragStart, row } = this.props;
+
+        if (onDragStart) {
+            onDragStart();
+        }
 
         // this has nothing to do with grid drag and drop
         // only use is setting meta data for custom drop events
@@ -443,35 +461,76 @@ export const handleRowSingleClickEvent = (
 };
 
 const rowSource = {
-    beginDrag({ getTreeData, row }) {
-        return {
-            getTreeData,
-            _id: row.get('_id'),
-            _index: row.get('_index'),
-            _parentId: row.get('_parentId'),
-            _path: row.get('_path')
-        };
+    beginDrag({ getTreeData, gridType, row }) {
+        if (gridType === 'tree') {
+            return {
+                getTreeData,
+                _id: row.get('_id'),
+                _index: row.get('_index'),
+                _parentId: row.get('_parentId'),
+                _path: row.get('_path')
+            };
+        }
+
+        return row.toJS();
     },
-    endDrag({ getTreeData, moveRow }, monitor) {
+    endDrag({
+        onRowDidNotDrop,
+        getTreeData,
+        moveRow,
+        gridType
+    }, monitor) {
         const { id, index, parentId, path } = getTreeData();
         const { _index, _parentId, _path } = monitor.getItem();
 
-        if (!monitor.didDrop()) {
-            moveRow(
-                { id, index, parentId, path },
-                { index: _index, parentId: _parentId, path: _path }
-            );
+        if (!monitor.didDrop() && onRowDidNotDrop) {
+            onRowDidNotDrop();
         }
+
+        if (!monitor.didDrop()) {
+            if (gridType === 'tree') {
+                moveRow(
+                    { id, index, parentId, path },
+                    { index: _index, parentId: _parentId, path: _path }
+                );
+            }
+        }
+    },
+
+    canDrag(props, monitor) {
+        const _canDrag = props.canDrag;
+
+        return _canDrag
+            ? _canDrag(props.row)
+            : true;
     }
+};
+
+const getDataForTreeGrid = (monitor) => {
+    const { getTreeData } = monitor.getItem();
+    return getTreeData ? getTreeData() : {};
+};
+
+const getPathDataForTreeGrid = (hoverPath, monitor) => {
+    const { getTreeData } = monitor.getItem();
+
+    return getTreeData
+        ? {
+            path: [...getTreeData().path.toJS()],
+            targetPath: hoverPath.toJS()
+        }
+        : {};
 };
 
 const rowTarget = {
     hover(props, monitor, component) {
-
         const {
+            gridType,
             events: hoverEvents,
             row: hoverRow,
-            previousRow: hoverPreviousRow
+            previousRow: hoverPreviousRow,
+            canDrop: _canDrop,
+            canDrag: _canDrag
         } = props;
 
         const {
@@ -485,7 +544,6 @@ const rowTarget = {
 
         const {
             lastX,
-            getTreeData,
             row
         } = monitor.getItem();
 
@@ -499,10 +557,12 @@ const rowTarget = {
             parentIndex,
             previousSiblingTotalChildren,
             previousSiblingId
-        } = getTreeData();
+        } = getDataForTreeGrid(monitor);
 
-        const path = [...getTreeData().path.toJS()];
-        const targetPath = hoverPath.toJS();
+        const {
+            path,
+            targetPath
+        } = getPathDataForTreeGrid(hoverPath, monitor);
 
         let targetIndex = hoverIndex;
         let targetParentId = hoverParentId;
@@ -513,7 +573,7 @@ const rowTarget = {
         }
 
         // cant drop child into a path that contains itself
-        if (hoverPath.indexOf(id) !== -1) {
+        if (hoverPath && hoverPath.indexOf(id) !== -1) {
             return;
         }
 
@@ -535,7 +595,11 @@ const rowTarget = {
 
         // if hover occurs over the grabbed row, we need to determine
         // if X position indicates left or right
-        if (hoverIndex === index && parentId === hoverParentId) {
+        if (
+            gridType === 'tree' &&
+            hoverIndex === index &&
+            parentId === hoverParentId
+        ) {
 
             // if a previous X position hasn't been set
             // set, and early return for next hover event
@@ -582,7 +646,7 @@ const rowTarget = {
             }
 
         }
-        else {
+        else if (gridType === 'tree') {
             // Only perform the move when the mouse
             // has crossed half of the items height
             // When dragging downwards, only move when the cursor is below 50%
@@ -600,7 +664,11 @@ const rowTarget = {
 
             // If hoverIsExpanded, put item as first child instead
             // instead of placing it as a sibling below hovered item
-            if (flatIndex < hoverFlatIndex && hoverIsExpanded) {
+            if (
+                gridType === 'tree' &&
+                flatIndex < hoverFlatIndex &&
+                hoverIsExpanded
+            ) {
                 const validDrop = fireEvent(
                     'HANDLE_BEFORE_TREE_CHILD_CREATE',
                     hoverEvents,
@@ -620,25 +688,100 @@ const rowTarget = {
                 targetPath.push(targetParentId);
             }
         }
+        else {
+            const currentIndex = hoverRow.get('index');
+            const previousIndex = hoverPreviousRow.get('index');
 
-        props.moveRow(
-            { id, index, parentId, path },
-            { index: targetIndex, parentId: targetParentId, path: targetPath }
-        );
+            // Hover is over the grabbed row, return early
+            if (monitor.getItem().index === hoverRow.get('index')) {
+                return;
+            }
+
+            if (_canDrag && !_canDrag(monitor.getItem())) {
+                return;
+            }
+
+            // Dragging downwards
+            if (
+                currentIndex < previousIndex &&
+                hoverClientY < hoverMiddleY
+            ) {
+                return;
+            }
+
+            // Dragging upwards
+            if (
+                currentIndex > previousIndex &&
+                hoverClientY > hoverMiddleY
+            ) {
+                return;
+            }
+        }
+
+        if (gridType === 'tree') {
+            props.moveRow(
+                { id, index, parentId, path },
+                {
+                    index: targetIndex,
+                    parentId: targetParentId,
+                    path: targetPath
+                }
+            );
+        }
+        else if (
+            (
+                !_canDrop ||
+                (_canDrop && _canDrop(hoverRow, monitor.getItem()))
+            ) &&
+            monitor.canDrop()
+        ) {
+            if (
+                !_canDrag ||
+                (_canDrag && _canDrag(monitor.getItem()))
+            ) {
+                props.moveRowFlat(
+                    hoverRow, monitor.getItem()
+                );
+            }
+        }
 
         monitor.getItem().lastX = mouseX;
     },
 
+    canDrop(props, monitor) {
+        const _canDrop = props.canDrop;
+
+        return _canDrop
+            ? _canDrop(props.row, monitor.getItem())
+            : true;
+    },
+
     drop(props, monitor) {
-        const { events, getTreeData, findRow } = props;
-        const { _id } = monitor.getItem();
-        const row = findRow(data => data.get('_id') === _id);
+        const {
+            editor,
+            events,
+            findRow,
+            getTreeData,
+            gridType,
+            rowIdentifier
+        } = props;
+
+        const rowId = rowIdentifier
+            ? rowIdentifier
+            : gridType === 'tree'
+                ? '_id'
+                : 'id';
+
+        const targetId = monitor.getItem()[rowId];
+
+        const row = findRow(data => data.get(rowId) === targetId);
 
         if (row) {
             fireEvent(
                 'HANDLE_AFTER_ROW_DROP',
                 events,
                 {
+                    editor,
                     row,
                     ...getTreeData()
                 },

@@ -45,6 +45,7 @@ export const DISMISS_EDITOR = '@@react-redux-grid/DISMISS_EDITOR';
 export const REMOVE_TOOLBAR = '@@react-redux-grid/REMOVE_TOOLBAR';
 
 export const MOVE_NODE = '@@react-redux-grid/MOVE_NODE';
+export const MOVE_NODE_FLAT = '@@react-redux-grid/MOVE_NODE_FLAT';
 
 export const SET_TREE_NODE_VISIBILITY = (
     '@@react-redux-grid/SET_TREE_NODE_VISIBILITY'

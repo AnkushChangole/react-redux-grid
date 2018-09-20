@@ -38,6 +38,7 @@ const {
     array,
     arrayOf,
     bool,
+    func,
     object,
     oneOf,
     oneOfType,
@@ -60,16 +61,23 @@ export class Grid extends Component {
         }
 
         const {
+            canDrag,
+            canDrop,
             classNames,
             columnState,
             dataSource,
             gridData,
             height,
             infinite,
+            onDragStart,
+            onRowDidNotDrop,
             pager,
             pageSize,
             plugins,
             reducerKeys,
+            rowIdentifier,
+            skipFn,
+            sortFn,
             stateKey
         } = this.props;
 
@@ -107,11 +115,18 @@ export class Grid extends Component {
                     { ...this.getHeaderProps(true) }
                 />
                 <TableContainer
+                    canDrag={canDrag}
+                    canDrop={canDrop}
                     editorComponent={editorComponent}
                     headerProps={this.getHeaderProps(false)}
                     height={height}
                     infinite={infinite}
+                    onDragStart={onDragStart}
+                    onRowDidNotDrop={onRowDidNotDrop}
+                    rowIdentifier={rowIdentifier}
                     rowProps={this.getRowProps()}
+                    skipFn={skipFn}
+                    sortFn={sortFn}
                 />
                 <PagerToolbar
                     dataSource={dataSource}
@@ -218,6 +233,8 @@ export class Grid extends Component {
     }
 
     static propTypes = {
+        canDrag: func,
+        canDrop: func,
         classNames: array,
         columnState: object,
         columns: arrayOf(object).isRequired,
@@ -242,12 +259,17 @@ export class Grid extends Component {
         infinite: bool,
         loadingState: object,
         menuState: object,
+        onDragStart: func,
+        onRowDidNotDrop: func,
         pageSize: number,
         pager: object,
         plugins: object,
         reducerKeys: oneOfType([object, string]),
+        rowIdentifier: string,
         selectedRows: object,
         showTreeRootNode: bool,
+        skipFn: func,
+        sortFn: func,
         stateKey: string,
         stateful: bool,
         store: object
@@ -422,7 +444,7 @@ export class Grid extends Component {
         selectionModel: this.selectionModel,
         stateKey: this.props.stateKey,
         store: this.getStore(),
-        stateful: this. props.stateful,
+        stateful: this.props.stateful,
         showTreeRootNode: this.props.showTreeRootNode,
         menuState: this.props.menuState,
         gridType: this.gridType

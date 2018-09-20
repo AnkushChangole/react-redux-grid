@@ -23,6 +23,10 @@ export const Menu = ({
                 editor, store, rowId, rowData, rowIndex, columns, stateKey
             )
         );
+
+        if (editor.config.hideEditAction) {
+            actions.menu.shift();
+        }
     }
 
     const menuProps = {

@@ -8,7 +8,7 @@ import { debounce, throttle } from './../../util/throttle';
 import Row from './TableRow';
 import Header from './Header';
 
-const { any, bool, number, object, oneOfType, string } = PropTypes;
+const { any, bool, func, number, object, oneOfType, string } = PropTypes;
 
 export class TableContainer extends Component {
 
@@ -16,11 +16,18 @@ export class TableContainer extends Component {
 
         const { CLASS_NAMES } = gridConfig();
         const {
+            canDrag,
+            canDrop,
             editorComponent,
             headerProps,
             height,
+            rowIdentifier,
             rowProps,
-            infinite
+            onDragStart,
+            onRowDidNotDrop,
+            infinite,
+            sortFn,
+            skipFn
         } = this.props;
 
         const { containerScrollTop, containerHeight } = this.state;
@@ -40,9 +47,16 @@ export class TableContainer extends Component {
                 >
                     <Header { ...headerProps } />
                     <Row
+                        canDrag={canDrag}
+                        canDrop={canDrop}
                         containerHeight={containerHeight}
                         containerScrollTop={containerScrollTop}
                         infinite={infinite}
+                        onDragStart={onDragStart}
+                        onRowDidNotDrop={onRowDidNotDrop}
+                        rowIdentifier={rowIdentifier}
+                        skipFn={skipFn}
+                        sortFn={sortFn}
                         { ...rowProps }
                     />
                 </table>
@@ -96,6 +110,8 @@ export class TableContainer extends Component {
     }
 
     static propTypes = {
+        canDrag: func,
+        canDrop: func,
         editorComponent: any,
         headerProps: object,
         height: oneOfType([
@@ -104,7 +120,12 @@ export class TableContainer extends Component {
             number
         ]),
         infinite: bool,
-        rowProps: object
+        onDragStart: func,
+        onRowDidNotDrop: func,
+        rowIdentifier: string,
+        rowProps: object,
+        skipFn: func,
+        sortFn: func
     };
 
     static defaultProps = {
