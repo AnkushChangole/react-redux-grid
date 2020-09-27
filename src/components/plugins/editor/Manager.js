@@ -26,7 +26,7 @@ export default class Manager {
     }
 
     getComponent(
-        plugins, reducerKeys, store, events, selectionModel, editor, columns
+        plugins, reducerKeys, store, events, selectionModel, editor, columns, saveText, cancelText
     ) {
 
         const editorProps = {
@@ -35,7 +35,9 @@ export default class Manager {
             reducerKeys,
             store,
             stateKey: this.stateKey,
-            events
+            events,
+            saveText,
+            cancelText,
         };
 
         if (!this.config.enabled) {

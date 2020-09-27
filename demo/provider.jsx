@@ -30,7 +30,9 @@ const config = {
     pageSize,
     plugins,
     events,
-    stateKey
+    stateKey,
+    saveText: 'SaveText',
+    cancelText: 'CancelText'
 };
 
 export default (

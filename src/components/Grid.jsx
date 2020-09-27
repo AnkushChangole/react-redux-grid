@@ -63,6 +63,7 @@ export class Grid extends Component {
         const {
             canDrag,
             canDrop,
+            cancelText,
             classNames,
             columnState,
             dataSource,
@@ -76,6 +77,7 @@ export class Grid extends Component {
             plugins,
             reducerKeys,
             rowIdentifier,
+            saveText,
             skipFn,
             sortFn,
             stateKey
@@ -235,6 +237,7 @@ export class Grid extends Component {
     static propTypes = {
         canDrag: func,
         canDrop: func,
+        cancelText: string,
         classNames: array,
         columnState: object,
         columns: arrayOf(object).isRequired,
@@ -266,6 +269,7 @@ export class Grid extends Component {
         plugins: object,
         reducerKeys: oneOfType([object, string]),
         rowIdentifier: string,
+        saveText: string,
         selectedRows: object,
         showTreeRootNode: bool,
         skipFn: func,
@@ -457,7 +461,9 @@ export class Grid extends Component {
         this.props.events,
         this.selectionModel,
         this.editor,
-        this.props.columns
+        this.props.columns,
+        this.props.saveText,
+        this.props.cancelText
     );
 
     getColumns = () => {
