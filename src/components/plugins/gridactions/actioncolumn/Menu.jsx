@@ -14,13 +14,14 @@ export const Menu = ({
     rowIndex,
     stateKey,
     store,
-    type
+    type,
+    editText
 }) => {
 
     if (editor.config.enabled && type !== 'header') {
         actions.menu.unshift(
             getEditAction(
-                editor, store, rowId, rowData, rowIndex, columns, stateKey
+                editor, store, rowId, rowData, rowIndex, columns, stateKey, editText
             )
         );
 
@@ -50,10 +51,10 @@ export const Menu = ({
 };
 
 export const getEditAction = (
-    editor, store, rowId, rowData, rowIndex, columns, stateKey
+    editor, store, rowId, rowData, rowIndex, columns, stateKey, editText
 ) => {
     return {
-        text: 'Edit',
+        text: editText,
         EVENT_HANDLER: handleEditClick.bind(
             this, editor, store, rowId, rowData, rowIndex, columns, stateKey, {}
         ),
@@ -64,6 +65,7 @@ export const getEditAction = (
 Menu.propTypes = {
     actions: PropTypes.object,
     columns: PropTypes.arrayOf(PropTypes.object),
+    editText: PropTypes.string,
     editor: PropTypes.object,
     maxHeight: PropTypes.number,
     reducerKeys: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
@@ -76,5 +78,5 @@ Menu.propTypes = {
 };
 
 Menu.defaultProps = {
-
+    editText: 'Edit'
 };

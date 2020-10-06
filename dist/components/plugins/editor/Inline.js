@@ -56,8 +56,10 @@ var Inline = exports.Inline = function (_Component) {
 
             var _props = this.props,
                 BUTTON_TYPES = _props.BUTTON_TYPES,
+                cancelText = _props.cancelText,
                 editorState = _props.editorState,
                 events = _props.events,
+                saveText = _props.saveText,
                 stateKey = _props.stateKey,
                 store = _props.store;
             var position = this.state.position;
@@ -92,17 +94,21 @@ var Inline = exports.Inline = function (_Component) {
                     'span',
                     buttonContainerProps,
                     _react2.default.createElement(_Button.Button, {
+                        cancelText: cancelText,
                         editedRowKey: editedRowKey,
                         editorState: editorState,
                         events: events,
+                        saveText: saveText,
                         stateKey: stateKey,
                         store: store,
                         type: BUTTON_TYPES.CANCEL
                     }),
                     _react2.default.createElement(_Button.Button, {
+                        cancelText: cancelText,
                         editedRowKey: editedRowKey,
                         editorState: editorState,
                         events: events,
+                        saveText: saveText,
                         stateKey: stateKey,
                         store: store,
                         type: BUTTON_TYPES.SAVE

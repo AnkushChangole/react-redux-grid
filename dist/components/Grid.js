@@ -125,9 +125,11 @@ var Grid = exports.Grid = function (_Component) {
             var _props = this.props,
                 canDrag = _props.canDrag,
                 canDrop = _props.canDrop,
+                cancelText = _props.cancelText,
                 classNames = _props.classNames,
                 columnState = _props.columnState,
                 dataSource = _props.dataSource,
+                editText = _props.editText,
                 gridData = _props.gridData,
                 height = _props.height,
                 infinite = _props.infinite,
@@ -138,6 +140,7 @@ var Grid = exports.Grid = function (_Component) {
                 plugins = _props.plugins,
                 reducerKeys = _props.reducerKeys,
                 rowIdentifier = _props.rowIdentifier,
+                saveText = _props.saveText,
                 skipFn = _props.skipFn,
                 sortFn = _props.sortFn,
                 stateKey = _props.stateKey;
@@ -178,7 +181,8 @@ var Grid = exports.Grid = function (_Component) {
                     rowIdentifier: rowIdentifier,
                     rowProps: this.getRowProps(),
                     skipFn: skipFn,
-                    sortFn: sortFn
+                    sortFn: sortFn,
+                    editText: editText
                 }),
                 _react2.default.createElement(_Pager2.default, {
                     dataSource: dataSource,
@@ -356,7 +360,7 @@ var Grid = exports.Grid = function (_Component) {
     }, {
         key: '__getEditor__REACT_HOT_LOADER__',
         value: function __getEditor__REACT_HOT_LOADER__() {
-            return this.editor.getComponent(this.props.plugins, this.props.reducerKeys, this.getStore(), this.props.events, this.selectionModel, this.editor, this.props.columns);
+            return this.editor.getComponent(this.props.plugins, this.props.reducerKeys, this.getStore(), this.props.events, this.selectionModel, this.editor, this.props.columns, this.props.saveText, this.props.cancelText);
         }
     }, {
         key: '__getRowProps__REACT_HOT_LOADER__',
@@ -509,6 +513,7 @@ Grid.contextTypes = {
 Grid.propTypes = {
     canDrag: func,
     canDrop: func,
+    cancelText: string,
     classNames: array,
     columnState: object,
     columns: arrayOf(object).isRequired,
@@ -516,6 +521,7 @@ Grid.propTypes = {
     dataSource: any,
     dragAndDrop: bool,
     editorState: object,
+    editText: string,
     emptyDataMessage: any,
     events: object,
     expandOnLoad: bool,
@@ -533,6 +539,7 @@ Grid.propTypes = {
     plugins: object,
     reducerKeys: oneOfType([object, string]),
     rowIdentifier: string,
+    saveText: string,
     selectedRows: object,
     showTreeRootNode: bool,
     skipFn: func,

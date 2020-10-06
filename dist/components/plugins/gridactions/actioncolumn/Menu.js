@@ -32,11 +32,12 @@ var Menu = exports.Menu = function Menu(_ref) {
         rowIndex = _ref.rowIndex,
         stateKey = _ref.stateKey,
         store = _ref.store,
-        type = _ref.type;
+        type = _ref.type,
+        editText = _ref.editText;
 
 
     if (editor.config.enabled && type !== 'header') {
-        actions.menu.unshift(getEditAction(editor, store, rowId, rowData, rowIndex, columns, stateKey));
+        actions.menu.unshift(getEditAction(editor, store, rowId, rowData, rowIndex, columns, stateKey, editText));
 
         if (editor.config.hideEditAction) {
             actions.menu.shift();
@@ -58,9 +59,9 @@ var Menu = exports.Menu = function Menu(_ref) {
     return _react2.default.createElement(_Menu.ConnectedMenu, menuProps);
 };
 
-var getEditAction = exports.getEditAction = function getEditAction(editor, store, rowId, rowData, rowIndex, columns, stateKey) {
+var getEditAction = exports.getEditAction = function getEditAction(editor, store, rowId, rowData, rowIndex, columns, stateKey, editText) {
     return {
-        text: 'Edit',
+        text: editText,
         EVENT_HANDLER: _handleEditClick.handleEditClick.bind(undefined, editor, store, rowId, rowData, rowIndex, columns, stateKey, {}),
         key: 'grid-edit-action'
     };
@@ -69,6 +70,7 @@ var getEditAction = exports.getEditAction = function getEditAction(editor, store
 Menu.propTypes = {
     actions: _propTypes2.default.object,
     columns: _propTypes2.default.arrayOf(_propTypes2.default.object),
+    editText: _propTypes2.default.string,
     editor: _propTypes2.default.object,
     maxHeight: _propTypes2.default.number,
     reducerKeys: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.string]),
@@ -80,7 +82,9 @@ Menu.propTypes = {
     type: _propTypes2.default.string
 };
 
-Menu.defaultProps = {};
+Menu.defaultProps = {
+    editText: 'Edit'
+};
 ;
 
 var _temp = function () {

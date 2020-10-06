@@ -22,8 +22,10 @@ export class Inline extends Component {
 
         const {
             BUTTON_TYPES,
+            cancelText,
             editorState,
             events,
+            saveText,
             stateKey,
             store
         } = this.props;
@@ -62,17 +64,21 @@ export class Inline extends Component {
             <div { ...inlineEditorProps }>
                 <span { ...buttonContainerProps }>
                     <Button
+                        cancelText={cancelText}
                         editedRowKey={editedRowKey}
                         editorState={editorState}
                         events={events}
+                        saveText={saveText}
                         stateKey={stateKey}
                         store={store}
                         type={BUTTON_TYPES.CANCEL}
                     />
                     <Button
+                        cancelText={cancelText}
                         editedRowKey={editedRowKey}
                         editorState={editorState}
                         events={events}
+                        saveText={saveText}
                         stateKey={stateKey}
                         store={store}
                         type={BUTTON_TYPES.SAVE}

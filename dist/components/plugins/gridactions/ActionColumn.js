@@ -57,6 +57,7 @@ var ActionColumn = exports.ActionColumn = function (_Component) {
 
             var _props = this.props,
                 columns = _props.columns,
+                editText = _props.editText,
                 editor = _props.editor,
                 events = _props.events,
                 headerActionItemBuilder = _props.headerActionItemBuilder,
@@ -93,7 +94,7 @@ var ActionColumn = exports.ActionColumn = function (_Component) {
                 className: className
             };
 
-            var actionArgs = [columns, containerProps, iconProps, menuShown, actions, columns, store, editor, reducerKeys, rowId, rowData, rowIndex, stateKey, stateful, headerActionItemBuilder, maxHeight, events];
+            var actionArgs = [columns, containerProps, iconProps, menuShown, actions, columns, store, editor, reducerKeys, rowId, rowData, rowIndex, stateKey, stateful, headerActionItemBuilder, maxHeight, editText, events];
 
             return type === 'header' ? getHeader.apply(undefined, actionArgs) : getColumn.apply(undefined, actionArgs);
         }
@@ -269,7 +270,7 @@ var addKeysToActions = exports.addKeysToActions = function addKeysToActions(acti
     return action;
 };
 
-var getColumn = exports.getColumn = function getColumn(cols, containerProps, iconProps, menuShown, actions, columns, store, editor, reducerKeys, rowId, rowData, rowIndex, stateKey, stateful, headerActionItemBuilder, maxHeight) {
+var getColumn = exports.getColumn = function getColumn(cols, containerProps, iconProps, menuShown, actions, columns, store, editor, reducerKeys, rowId, rowData, rowIndex, stateKey, stateful, headerActionItemBuilder, maxHeight, editText) {
     var _gridConfig2 = (0, _GridConstants.gridConfig)(),
         CLASS_NAMES = _gridConfig2.CLASS_NAMES;
 
@@ -284,7 +285,8 @@ var getColumn = exports.getColumn = function getColumn(cols, containerProps, ico
         columns: cols,
         stateKey: stateKey,
         rowIndex: rowIndex,
-        maxHeight: maxHeight
+        maxHeight: maxHeight,
+        editText: editText
     }) : null;
 
     if (actions && actions.menu && actions.menu.length === 0) {

@@ -20,6 +20,7 @@ export class ActionColumn extends Component {
         const { CLASS_NAMES } = gridConfig();
         const {
             columns,
+            editText,
             editor,
             events,
             headerActionItemBuilder,
@@ -100,6 +101,7 @@ export class ActionColumn extends Component {
             stateful,
             headerActionItemBuilder,
             maxHeight,
+            editText,
             events
         ];
 
@@ -324,7 +326,8 @@ export const getColumn = (
     stateKey,
     stateful,
     headerActionItemBuilder,
-    maxHeight
+    maxHeight,
+    editText
 ) => {
     const { CLASS_NAMES } = gridConfig();
     const menu = menuShown
@@ -341,7 +344,8 @@ export const getColumn = (
                 columns: cols,
                 stateKey,
                 rowIndex,
-                maxHeight
+                maxHeight,
+                editText
             }
         } />
         : null;

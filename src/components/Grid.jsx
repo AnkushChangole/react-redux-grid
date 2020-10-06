@@ -63,9 +63,11 @@ export class Grid extends Component {
         const {
             canDrag,
             canDrop,
+            cancelText,
             classNames,
             columnState,
             dataSource,
+            editText,
             gridData,
             height,
             infinite,
@@ -76,6 +78,7 @@ export class Grid extends Component {
             plugins,
             reducerKeys,
             rowIdentifier,
+            saveText,
             skipFn,
             sortFn,
             stateKey
@@ -127,6 +130,7 @@ export class Grid extends Component {
                     rowProps={this.getRowProps()}
                     skipFn={skipFn}
                     sortFn={sortFn}
+                    editText={editText}
                 />
                 <PagerToolbar
                     dataSource={dataSource}
@@ -235,6 +239,7 @@ export class Grid extends Component {
     static propTypes = {
         canDrag: func,
         canDrop: func,
+        cancelText: string,
         classNames: array,
         columnState: object,
         columns: arrayOf(object).isRequired,
@@ -245,6 +250,7 @@ export class Grid extends Component {
         dataSource: any,
         dragAndDrop: bool,
         editorState: object,
+        editText: string,
         emptyDataMessage: any,
         events: object,
         expandOnLoad: bool,
@@ -266,6 +272,7 @@ export class Grid extends Component {
         plugins: object,
         reducerKeys: oneOfType([object, string]),
         rowIdentifier: string,
+        saveText: string,
         selectedRows: object,
         showTreeRootNode: bool,
         skipFn: func,
@@ -457,7 +464,9 @@ export class Grid extends Component {
         this.props.events,
         this.selectionModel,
         this.editor,
-        this.props.columns
+        this.props.columns,
+        this.props.saveText,
+        this.props.cancelText
     );
 
     getColumns = () => {

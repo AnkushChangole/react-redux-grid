@@ -158,7 +158,8 @@ var ColumnManager = function () {
                 rowIndex = _ref3.rowIndex,
                 menuState = _ref3.menuState,
                 stateKey = _ref3.stateKey,
-                stateful = _ref3.stateful;
+                stateful = _ref3.stateful,
+                editText = _ref3.editText;
             var GRID_ACTIONS = this.plugins.GRID_ACTIONS;
 
             var cellsCopy = cells;
@@ -178,7 +179,8 @@ var ColumnManager = function () {
                 menuState: menuState,
                 gridState: columns,
                 headerActionItemBuilder: this.config.headerActionItemBuilder,
-                key: (0, _keyGenerator.keyFromObject)(cells, ['row', 'actionhandler'])
+                key: (0, _keyGenerator.keyFromObject)(cells, ['row', 'actionhandler']),
+                editText: editText
             };
 
             if (GRID_ACTIONS) {

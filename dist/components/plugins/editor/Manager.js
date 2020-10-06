@@ -47,7 +47,7 @@ var Manager = function () {
         }
     }, {
         key: 'getComponent',
-        value: function getComponent(plugins, reducerKeys, store, events, selectionModel, editor, columns) {
+        value: function getComponent(plugins, reducerKeys, store, events, selectionModel, editor, columns, saveText, cancelText) {
 
             var editorProps = {
                 columns: columns,
@@ -55,7 +55,9 @@ var Manager = function () {
                 reducerKeys: reducerKeys,
                 store: store,
                 stateKey: this.stateKey,
-                events: events
+                events: events,
+                saveText: saveText,
+                cancelText: cancelText
             };
 
             if (!this.config.enabled) {
