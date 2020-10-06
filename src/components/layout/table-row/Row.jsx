@@ -38,6 +38,7 @@ export class Row extends Component {
             dragAndDrop,
             editor,
             editorState,
+            editText,
             events,
             gridType,
             index,
@@ -150,7 +151,8 @@ export class Row extends Component {
             rowData: row,
             rowIndex: index,
             stateKey,
-            menuState
+            menuState,
+            editText: editText
         });
 
         selectionModel.updateCells({

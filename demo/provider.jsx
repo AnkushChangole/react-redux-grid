@@ -31,8 +31,9 @@ const config = {
     plugins,
     events,
     stateKey,
-    saveText: 'SaveText',
-    cancelText: 'CancelText'
+    saveText: 'Save',
+    cancelText: 'Cancel',
+    editText: 'Edit'
 };
 
 export default (

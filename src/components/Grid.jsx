@@ -67,6 +67,7 @@ export class Grid extends Component {
             classNames,
             columnState,
             dataSource,
+            editText,
             gridData,
             height,
             infinite,
@@ -129,6 +130,7 @@ export class Grid extends Component {
                     rowProps={this.getRowProps()}
                     skipFn={skipFn}
                     sortFn={sortFn}
+                    editText={editText}
                 />
                 <PagerToolbar
                     dataSource={dataSource}
@@ -248,6 +250,7 @@ export class Grid extends Component {
         dataSource: any,
         dragAndDrop: bool,
         editorState: object,
+        editText: string,
         emptyDataMessage: any,
         events: object,
         expandOnLoad: bool,

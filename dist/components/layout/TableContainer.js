@@ -64,6 +64,7 @@ var TableContainer = exports.TableContainer = function (_Component) {
                 canDrag = _props.canDrag,
                 canDrop = _props.canDrop,
                 editorComponent = _props.editorComponent,
+                editText = _props.editText,
                 headerProps = _props.headerProps,
                 height = _props.height,
                 rowIdentifier = _props.rowIdentifier,
@@ -101,7 +102,8 @@ var TableContainer = exports.TableContainer = function (_Component) {
                         onRowDidNotDrop: onRowDidNotDrop,
                         rowIdentifier: rowIdentifier,
                         skipFn: skipFn,
-                        sortFn: sortFn
+                        sortFn: sortFn,
+                        editText: editText
                     }, rowProps))
                 ),
                 editorComponent

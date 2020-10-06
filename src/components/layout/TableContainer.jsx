@@ -19,6 +19,7 @@ export class TableContainer extends Component {
             canDrag,
             canDrop,
             editorComponent,
+            editText,
             headerProps,
             height,
             rowIdentifier,
@@ -57,6 +58,7 @@ export class TableContainer extends Component {
                         rowIdentifier={rowIdentifier}
                         skipFn={skipFn}
                         sortFn={sortFn}
+                        editText={editText}
                         { ...rowProps }
                     />
                 </table>

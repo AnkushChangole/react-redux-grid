@@ -129,6 +129,7 @@ var Grid = exports.Grid = function (_Component) {
                 classNames = _props.classNames,
                 columnState = _props.columnState,
                 dataSource = _props.dataSource,
+                editText = _props.editText,
                 gridData = _props.gridData,
                 height = _props.height,
                 infinite = _props.infinite,
@@ -180,7 +181,8 @@ var Grid = exports.Grid = function (_Component) {
                     rowIdentifier: rowIdentifier,
                     rowProps: this.getRowProps(),
                     skipFn: skipFn,
-                    sortFn: sortFn
+                    sortFn: sortFn,
+                    editText: editText
                 }),
                 _react2.default.createElement(_Pager2.default, {
                     dataSource: dataSource,
@@ -519,6 +521,7 @@ Grid.propTypes = {
     dataSource: any,
     dragAndDrop: bool,
     editorState: object,
+    editText: string,
     emptyDataMessage: any,
     events: object,
     expandOnLoad: bool,

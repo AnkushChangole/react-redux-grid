@@ -82,6 +82,7 @@ var Row = exports.Row = function (_Component) {
                 dragAndDrop = _props.dragAndDrop,
                 editor = _props.editor,
                 editorState = _props.editorState,
+                editText = _props.editText,
                 events = _props.events,
                 gridType = _props.gridType,
                 index = _props.index,
@@ -172,7 +173,8 @@ var Row = exports.Row = function (_Component) {
                 rowData: row,
                 rowIndex: index,
                 stateKey: stateKey,
-                menuState: menuState
+                menuState: menuState,
+                editText: editText
             });
 
             selectionModel.updateCells({

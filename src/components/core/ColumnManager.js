@@ -129,7 +129,7 @@ export default class ColumnManager {
             );
         }
     }
-
+   
     addActionColumn({
         cells,
         columns,
@@ -140,7 +140,8 @@ export default class ColumnManager {
         rowIndex,
         menuState,
         stateKey,
-        stateful
+        stateful,
+        editText
     }) {
 
         const { GRID_ACTIONS } = this.plugins;
@@ -161,7 +162,8 @@ export default class ColumnManager {
             menuState,
             gridState: columns,
             headerActionItemBuilder: this.config.headerActionItemBuilder,
-            key: keyFromObject(cells, ['row', 'actionhandler'])
+            key: keyFromObject(cells, ['row', 'actionhandler']),
+            editText
         };
 
         if (GRID_ACTIONS) {

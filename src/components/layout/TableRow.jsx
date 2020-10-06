@@ -246,6 +246,7 @@ export class TableRow extends Component {
             dragAndDrop={this.props.dragAndDrop}
             editor={this.props.editor}
             editorState={this.props.editorState}
+            editText={this.props.editText}
             emptyDataMessage={this.props.emptyDataMessage}
             events={this.props.events}
             findRow={this.findRow}

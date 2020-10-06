@@ -207,6 +207,7 @@ var TableRow = exports.TableRow = function (_Component) {
                     dragAndDrop: _this2.props.dragAndDrop,
                     editor: _this2.props.editor,
                     editorState: _this2.props.editorState,
+                    editText: _this2.props.editText,
                     emptyDataMessage: _this2.props.emptyDataMessage,
                     events: _this2.props.events,
                     findRow: _this2.findRow,
