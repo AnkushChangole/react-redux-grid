@@ -10,7 +10,7 @@
 
     [File Path: src/components/plugins/editor/Inline.js]
 
-  * Added props saveText and cancelText as shown below:
+  * Added props **saveText** and **cancelText** as shown below:
   ```javascript
     const {
             BUTTON_TYPES,
@@ -52,8 +52,8 @@
             </div>
         );
     }
- ```
-    [File Path:src/components/plugins/editor/Manager.js]
+  ```
+  [File Path: src/components/plugins/editor/Manager.js]
 
   * Updated **getComponent** function and added **saveText** and **cancelText** as parameter.
 
