@@ -148,7 +148,7 @@
         stateful: bool,
         store: object
     };
-    ```
+  ```
 
   * Pass **saveText** and **cancelText** to **getEditor** function.
   ```javascript
