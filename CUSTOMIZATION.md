@@ -281,7 +281,7 @@ Menu.defaultProps = {
         ];
   ```
   * Added **editText** in **getColumn** function
-    ```javascript
+  ```javascript
     export const getColumn = (
     cols,
     containerProps,
@@ -320,7 +320,7 @@ Menu.defaultProps = {
                 editText
             }
         } />
-    ```
+  ```
 ## Files Path
 
 ## Test Steps 
