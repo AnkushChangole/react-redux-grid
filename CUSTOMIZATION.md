@@ -518,7 +518,7 @@ Menu.defaultProps = {
             stateKey
         } = this.props;
   ```
-  * Passed **editText** to **<TableContainer>**
+  * Passed **editText** to **TableContainer**
   ```javascript
     <TableContainer
                     canDrag={canDrag}
