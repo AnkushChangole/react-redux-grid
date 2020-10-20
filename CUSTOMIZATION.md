@@ -362,9 +362,9 @@ Menu.defaultProps = {
         };
   ```
 
-     [File path: src/components/layout/TableRow.jsx]
+  [File path: src/components/layout/TableRow.jsx]
 
-      *Added **editText** to const props.
+   *Added **editText** to const props.
   ```javascript
      const {
             columnManager,
@@ -394,7 +394,7 @@ Menu.defaultProps = {
         } = this.props;
   ```
 
-    * Passed **editText** to **columnManager.addActionColumn**
+  * Passed **editText** to **columnManager.addActionColumn**
   ```javascript
     columnManager.addActionColumn({
             cells,
@@ -412,7 +412,7 @@ Menu.defaultProps = {
 
     [File Path: src/components/layout/TableRow.jsx]
 
-    * Added **editText={this.props.editText}** to **toRowComponents**
+  * Added **editText={this.props.editText}** to **toRowComponents**
   ```javascript
     toRowComponents = () => (row, index, rows) => (
         <Row
@@ -455,7 +455,7 @@ Menu.defaultProps = {
 
     [File Path: src/components/layout/TableContainer.jsx]
 
-    * Add **editText** to const props
+  * Add **editText** to const props
   ```javascript
     const {
             canDrag,
@@ -473,7 +473,7 @@ Menu.defaultProps = {
             skipFn
         } = this.props;
   ```
-    * Passed **editText** to **<Row>**
+  * Passed **editText** to **<Row>**
   ```javascript
     <Row
                         canDrag={canDrag}
@@ -490,9 +490,9 @@ Menu.defaultProps = {
                         { ...rowProps }
                     />
   ```
-    [File Path: src/components/Grid.jsx]
+  [File Path: src/components/Grid.jsx]
 
-    * Added **editText** in const props
+  * Added **editText** in const props
   ```javascript
     const {
             canDrag,
@@ -518,7 +518,7 @@ Menu.defaultProps = {
             stateKey
         } = this.props;
   ```
-    * Passed **editText** to **<TableContainer>**
+  * Passed **editText** to **<TableContainer>**
   ```javascript
     <TableContainer
                     canDrag={canDrag}
@@ -536,7 +536,7 @@ Menu.defaultProps = {
                     editText={editText}
                 />
   ```
-    * Added **editText** to **static propTypes**
+  * Added **editText** to **static propTypes**
   ```javascript
      static propTypes = {
         canDrag: func,
