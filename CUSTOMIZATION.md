@@ -360,7 +360,7 @@ Menu.defaultProps = {
             key: keyFromObject(cells, ['row', 'actionhandler']),
             editText
         };
-    ```
+  ```
      [File path: src/components/layout/TableRow.jsx]
      * Added **editText** to const props.
      ```javascript
