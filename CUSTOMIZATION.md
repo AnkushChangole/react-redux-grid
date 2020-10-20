@@ -321,6 +321,239 @@ Menu.defaultProps = {
             }
         } />
   ```
+  [File Path: src/components/core/ColumnManager.js]
+
+  *Added **editText** to **addActionColumn** function.
+  ```javascript
+  addActionColumn({
+        cells,
+        columns,
+        type,
+        id,
+        reducerKeys,
+        rowData,
+        rowIndex,
+        menuState,
+        stateKey,
+        stateful,
+        editText
+    }) {
+
+        const { GRID_ACTIONS } = this.plugins;
+        const cellsCopy = cells;
+        const actionProps = {
+            actions: GRID_ACTIONS,
+            store: this.store,
+            type,
+            columns: columns || this.columns,
+            rowId: id,
+            rowData,
+            rowIndex,
+            editor: this.editor,
+            reducerKeys,
+            selModel: this.selModel,
+            stateful,
+            stateKey,
+            menuState,
+            gridState: columns,
+            headerActionItemBuilder: this.config.headerActionItemBuilder,
+            key: keyFromObject(cells, ['row', 'actionhandler']),
+            editText
+        };
+    ```
+    [File path: src/components/layout/TableRow.jsx]
+    * Added **editText** to const props.
+    ```javascript
+    const {
+            columnManager,
+            columns,
+            connectDragSource,
+            connectDropTarget,
+            dragAndDrop,
+            editor,
+            editorState,
+            editText,
+            events,
+            gridType,
+            index,
+            isDragging,
+            menuState,
+            plugins,
+            readFunc,
+            reducerKeys,
+            row,
+            selectedRows,
+            selectionModel,
+            showTreeRootNode,
+            stateful,
+            stateKey,
+            store,
+            treeData
+        } = this.props;
+    ```
+
+    * Passed **editText** to **columnManager.addActionColumn**
+    ```javascript
+    columnManager.addActionColumn({
+            cells,
+            columns,
+            type: 'row',
+            id,
+            reducerKeys,
+            rowData: row,
+            rowIndex: index,
+            stateKey,
+            menuState,
+            editText: editText
+        });
+    ```
+
+    [File Path: src/components/layout/TableRow.jsx]
+
+    * Added **editText={this.props.editText}** to **toRowComponents**
+    ```javascript
+    toRowComponents = () => (row, index, rows) => (
+        <Row
+            canDrag={this.props.canDrag}
+            canDrop={this.props.canDrop}
+            columnManager={this.props.columnManager}
+            columns={this.props.columns}
+            dragAndDrop={this.props.dragAndDrop}
+            editor={this.props.editor}
+            editorState={this.props.editorState}
+            editText={this.props.editText}
+            emptyDataMessage={this.props.emptyDataMessage}
+            events={this.props.events}
+            findRow={this.findRow}
+            gridType={this.props.gridType}
+            index={index}
+            key={getRowKey(this.props.columns, row)}
+            menuState={this.props.menuState}
+            moveRow={this.moveRow}
+            moveRowFlat={this.moveRowFlat}
+            nextRow={rows.get(index + 1)}
+            onDragStart={this.props.onDragStart}
+            onRowDidNotDrop={this.props.onRowDidNotDrop}
+            plugins={this.props.plugins}
+            previousRow={rows.get(index - 1)}
+            readFunc={this.props.readFunc}
+            reducerKeys={this.props.reducerKeys}
+            row={row}
+            rowIdentifier={this.props.rowIdentifier}
+            selectedRows={this.props.selectedRows}
+            selectionModel={this.props.selectionModel}
+            showTreeRootNode={this.props.showTreeRootNode}
+            stateKey={this.props.stateKey}
+            stateful={this.props.stateful}
+            store={this.props.store}
+            treeData={getTreeData(row)}
+        />
+    );
+    ```
+
+    [File Path: src/components/layout/TableContainer.jsx]
+
+    * Add **editText** to const props
+    ```javascript
+    const {
+            canDrag,
+            canDrop,
+            editorComponent,
+            editText,
+            headerProps,
+            height,
+            rowIdentifier,
+            rowProps,
+            onDragStart,
+            onRowDidNotDrop,
+            infinite,
+            sortFn,
+            skipFn
+        } = this.props;
+    ```
+    * Passed **editText** to **<Row>**
+    ```javascript
+    <Row
+                        canDrag={canDrag}
+                        canDrop={canDrop}
+                        containerHeight={containerHeight}
+                        containerScrollTop={containerScrollTop}
+                        infinite={infinite}
+                        onDragStart={onDragStart}
+                        onRowDidNotDrop={onRowDidNotDrop}
+                        rowIdentifier={rowIdentifier}
+                        skipFn={skipFn}
+                        sortFn={sortFn}
+                        editText={editText}
+                        { ...rowProps }
+                    />
+    ```
+    [File Path: src/components/Grid.jsx]
+
+    * Added **editText** in const props
+    ```javascript
+    const {
+            canDrag,
+            canDrop,
+            cancelText,
+            classNames,
+            columnState,
+            dataSource,
+            editText,
+            gridData,
+            height,
+            infinite,
+            onDragStart,
+            onRowDidNotDrop,
+            pager,
+            pageSize,
+            plugins,
+            reducerKeys,
+            rowIdentifier,
+            saveText,
+            skipFn,
+            sortFn,
+            stateKey
+        } = this.props;
+    ```
+    * Passed **editText** to **<TableContainer>**
+    ```javascript
+    <TableContainer
+                    canDrag={canDrag}
+                    canDrop={canDrop}
+                    editorComponent={editorComponent}
+                    headerProps={this.getHeaderProps(false)}
+                    height={height}
+                    infinite={infinite}
+                    onDragStart={onDragStart}
+                    onRowDidNotDrop={onRowDidNotDrop}
+                    rowIdentifier={rowIdentifier}
+                    rowProps={this.getRowProps()}
+                    skipFn={skipFn}
+                    sortFn={sortFn}
+                    editText={editText}
+                />
+    ```
+    * Added **editText** to **static propTypes**
+    ```javascript
+     static propTypes = {
+        canDrag: func,
+        canDrop: func,
+        cancelText: string,
+        classNames: array,
+        columnState: object,
+        columns: arrayOf(object).isRequired,
+        data: oneOf([
+            arrayOf(object),
+            object,
+        ]),
+        dataSource: any,
+        dragAndDrop: bool,
+        editorState: object,
+        editText: string,
+        emptyDataMessage: any
+    ```
+
 ## Files Path
 
 ## Test Steps 
