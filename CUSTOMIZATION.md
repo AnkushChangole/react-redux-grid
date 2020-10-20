@@ -280,7 +280,7 @@ Menu.defaultProps = {
             events
         ];
   ```
-    * Added **editText** in **getColumn** function
+  * Added **editText** in **getColumn** function
     ```javascript
     export const getColumn = (
     cols,
@@ -320,7 +320,7 @@ Menu.defaultProps = {
                 editText
             }
         } />
-   ```
+    ```
 ## Files Path
 
 ## Test Steps 
