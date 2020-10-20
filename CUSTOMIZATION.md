@@ -556,4 +556,14 @@ Menu.defaultProps = {
 
 ## Files Path
 
+* src/components/Grid.jsx
+* src/components/core/ColumnManager.js
+* src/components/layout/TableContainer.jsx
+* src/components/layout/TableRow.jsx
+* src/components/layout/table-row/Row.jsx
+* src/components/plugins/editor/Inline.jsx
+* src/components/plugins/editor/Manager.js
+* src/components/plugins/gridactions/ActionColumn.jsx
+* src/components/plugins/gridactions/actioncolumn/Menu.jsx
+
 ## Test Steps 
