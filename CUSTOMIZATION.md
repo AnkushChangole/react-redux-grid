@@ -590,5 +590,20 @@ Menu.defaultProps = {
 * src/components/plugins/editor/Inline.jsx
 * src/components/plugins/editor/Manager.js
 * src/components/plugins/gridactions/ActionColumn.jsx
-* src/components/plugins/gridactions/actioncolumn/Menu.jsx 
+* src/components/plugins/gridactions/actioncolumn/Menu.jsx
+* demo/provider.jsx
+
+After adding changes in above files, I have executed **npm run dist** command, which updated same above complied file in dist folder.
+* dist/components/Grid.js
+* dist/components/core/ColumnManager.js
+* dist/components/layout/TableContainer.js
+* dist/components/layout/TableRow.js
+* dist/components/layout/table-row/Row.js
+* dist/components/plugins/editor/Inline.js
+* dist/components/plugins/editor/Manager.js
+* dist/components/plugins/gridactions/ActionColumn.js
+* dist/components/plugins/gridactions/actioncolumn/Menu.js
+
+Note: Whenever we make any changes to files. we have to run **npm run dist** command which will update the files in dist folder and we need to commit those as well.
+
 ## Test Steps 
