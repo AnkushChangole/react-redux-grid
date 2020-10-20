@@ -14,36 +14,36 @@
   ```javascript
     const {
             BUTTON_TYPES,
-            **cancelText,**
+            cancelText,
             editorState,
             events,
-            **saveText,**
+            saveText,
             stateKey,
             store
         } = this.props;
   ```
 
-  2) Passed these props to Button in return block.
+  2) Passed props **cancelText={cancelText}** and **saveText={saveText}** to Button in return block.
   ```javascript
    return (
             <div { ...inlineEditorProps }>
                 <span { ...buttonContainerProps }>
                     <Button
-                        **cancelText={cancelText}**
+                        cancelText={cancelText}
                         editedRowKey={editedRowKey}
                         editorState={editorState}
                         events={events}
-                        **saveText={saveText}**
+                        saveText={saveText}
                         stateKey={stateKey}
                         store={store}
                         type={BUTTON_TYPES.CANCEL}
                     />
                     <Button
-                        **cancelText={cancelText}**
+                        cancelText={cancelText}
                         editedRowKey={editedRowKey}
                         editorState={editorState}
                         events={events}
-                        **saveText={saveText}**
+                        saveText={saveText}
                         stateKey={stateKey}
                         store={store}
                         type={BUTTON_TYPES.SAVE}
