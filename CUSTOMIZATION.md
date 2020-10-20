@@ -535,7 +535,7 @@ Menu.defaultProps = {
                 />
   ```
     * Added **editText** to **static propTypes**
-  ```javascript
+   ```javascript
      static propTypes = {
         canDrag: func,
         canDrop: func,
@@ -552,7 +552,7 @@ Menu.defaultProps = {
         editorState: object,
         editText: string,
         emptyDataMessage: any
-  ```
+   ```
 
 ## Files Path
 
