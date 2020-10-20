@@ -5,7 +5,7 @@
   * Modified repo to pass Save,Cancel and Edit button text as props from the component.
   * This will help us to implement localization for these button text. 
 
-## Logic 
+## Logic - Save and Cancel Button
   * For Save and Cancel Button Customization made chanegs in following files.
 
     [File Path: src/components/plugins/editor/Inline.js]
@@ -163,6 +163,74 @@
         this.props.saveText,
         this.props.cancelText
     );
+  ```
+
+## Logic - Edit Button
+  * For **Edit** Button Customization made chanegs in following files.
+
+  [File Path:src/components/plugins/gridactions/actioncolumn/Menu.jsx]
+
+  * Added **editText** to **Menu**
+  ```javascript
+  export const Menu = ({
+    actions,
+    columns,
+    editor,
+    maxHeight,
+    reducerKeys,
+    rowData,
+    rowId,
+    rowIndex,
+    stateKey,
+    store,
+    type,
+    editText
+}) => {
+  ```
+
+  * Passed **editText** props to **getEditAction** fucntion
+  ```javascript
+  if (editor.config.enabled && type !== 'header') {
+        actions.menu.unshift(
+            getEditAction(
+                editor, store, rowId, rowData, rowIndex, columns, stateKey, editText
+            )
+        );
+
+  * Updated **getEditAction** and updated text with **editText** prop value.
+  ```javascript
+  export const getEditAction = (
+    editor, store, rowId, rowData, rowIndex, columns, stateKey, editText
+) => {
+    return {
+        text: editText,
+        EVENT_HANDLER: handleEditClick.bind(
+            this, editor, store, rowId, rowData, rowIndex, columns, stateKey, {}
+        ),
+        key: 'grid-edit-action'
+    };
+};
+   ```
+ * Included **editText** in propTypes and assign defaultProps text as **Edit**
+ ```javascript
+ Menu.propTypes = {
+    actions: PropTypes.object,
+    columns: PropTypes.arrayOf(PropTypes.object),
+    editText: PropTypes.string,
+    editor: PropTypes.object,
+    maxHeight: PropTypes.number,
+    reducerKeys: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+    rowData: PropTypes.object,
+    rowId: PropTypes.string,
+    rowIndex: PropTypes.number,
+    stateKey: PropTypes.string,
+    store: PropTypes.object,
+    type: PropTypes.string
+};
+
+Menu.defaultProps = {
+    editText: 'Edit'
+};
   ```
 ## Files Path
 
