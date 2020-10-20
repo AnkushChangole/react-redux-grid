@@ -279,7 +279,7 @@ Menu.defaultProps = {
             editText,
             events
         ];
-    ```
+  ```
     * Added **editText** in **getColumn** function
     ```javascript
     export const getColumn = (
