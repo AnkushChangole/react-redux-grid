@@ -360,11 +360,11 @@ Menu.defaultProps = {
             key: keyFromObject(cells, ['row', 'actionhandler']),
             editText
         };
-  ```
-    [File path: src/components/layout/TableRow.jsx]
-    * Added **editText** to const props.
-  ```javascript
-    const {
+    ```
+     [File path: src/components/layout/TableRow.jsx]
+     * Added **editText** to const props.
+     ```javascript
+     const {
             columnManager,
             columns,
             connectDragSource,
@@ -390,10 +390,10 @@ Menu.defaultProps = {
             store,
             treeData
         } = this.props;
-  ```
+     ```
 
     * Passed **editText** to **columnManager.addActionColumn**
-  ```javascript
+    ```javascript
     columnManager.addActionColumn({
             cells,
             columns,
@@ -406,12 +406,12 @@ Menu.defaultProps = {
             menuState,
             editText: editText
         });
-  ```
+    ```
 
     [File Path: src/components/layout/TableRow.jsx]
 
     * Added **editText={this.props.editText}** to **toRowComponents**
-  ```javascript
+    ```javascript
     toRowComponents = () => (row, index, rows) => (
         <Row
             canDrag={this.props.canDrag}
@@ -449,12 +449,12 @@ Menu.defaultProps = {
             treeData={getTreeData(row)}
         />
     );
-  ```
+    ```
 
     [File Path: src/components/layout/TableContainer.jsx]
 
     * Add **editText** to const props
-  ```javascript
+    ```javascript
     const {
             canDrag,
             canDrop,
@@ -470,9 +470,9 @@ Menu.defaultProps = {
             sortFn,
             skipFn
         } = this.props;
-  ```
+    ```
     * Passed **editText** to **<Row>**
-  ```javascript
+    ```javascript
     <Row
                         canDrag={canDrag}
                         canDrop={canDrop}
@@ -487,11 +487,11 @@ Menu.defaultProps = {
                         editText={editText}
                         { ...rowProps }
                     />
-  ```
+    ```
     [File Path: src/components/Grid.jsx]
 
     * Added **editText** in const props
-  ```javascript
+    ```javascript
     const {
             canDrag,
             canDrop,
@@ -515,9 +515,9 @@ Menu.defaultProps = {
             sortFn,
             stateKey
         } = this.props;
-  ```
+    ```
     * Passed **editText** to **<TableContainer>**
-  ```javascript
+    ```javascript
     <TableContainer
                     canDrag={canDrag}
                     canDrop={canDrop}
@@ -533,9 +533,9 @@ Menu.defaultProps = {
                     sortFn={sortFn}
                     editText={editText}
                 />
-  ```
+    ```
     * Added **editText** to **static propTypes**
-   ```javascript
+    ```javascript
      static propTypes = {
         canDrag: func,
         canDrop: func,
@@ -552,7 +552,7 @@ Menu.defaultProps = {
         editorState: object,
         editText: string,
         emptyDataMessage: any
-   ```
+    ```
 
 ## Files Path
 
@@ -564,6 +564,5 @@ Menu.defaultProps = {
 * src/components/plugins/editor/Inline.jsx
 * src/components/plugins/editor/Manager.js
 * src/components/plugins/gridactions/ActionColumn.jsx
-* src/components/plugins/gridactions/actioncolumn/Menu.jsx
-
+* src/components/plugins/gridactions/actioncolumn/Menu.jsx 
 ## Test Steps 
