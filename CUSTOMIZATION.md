@@ -363,7 +363,6 @@ Menu.defaultProps = {
   ```
 
   [File path: src/components/layout/TableRow.jsx]
-
   * Added **editText** to const props.
   ```javascript
      const {
