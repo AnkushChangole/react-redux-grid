@@ -606,4 +606,35 @@ After adding changes in above files, I have executed **npm run dist** command, w
 
 Note: Whenever we make any changes to files. we have to run **npm run dist** command which will update the files in dist folder and we need to commit those as well.
 
-## Test Steps 
+## Test Steps
+
+* We can test this modified inline edit funtionality with this Repo.
+
+If you would like to build and run the demo in your browser:
+
+$ git clone https://github.com/AnkushChangole/react-redux-grid.git
+$ cd react-redux-grid
+$ npm run start
+Open your browser to: http://localhost:8080/demo/
+
+Now Go to **demo/provider.jsx** file and changes **saveText**,**cancelText** and **EditText** and check updated string on browser Grid.
+'''javascript
+const config = {
+    columns,
+    // data,
+    // data: treeData,
+    // dataSource: treeDataSource,
+    // infinite: true,
+    stateful: false,
+    dataSource: examplePromiseDataSource,
+    // dragAndDrop: true,
+    // gridType: 'tree',
+    pageSize,
+    plugins,
+    events,
+    stateKey,
+    saveText: 'SaveTest',
+    cancelText: 'CancelTest',
+    editText: 'EditTest'
+};
+```
