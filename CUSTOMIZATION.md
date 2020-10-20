@@ -612,13 +612,15 @@ Note: Whenever we make any changes to files. we have to run **npm run dist** com
 
 If you would like to build and run the demo in your browser:
 
+```bash
 $ git clone https://github.com/AnkushChangole/react-redux-grid.git
 $ cd react-redux-grid
 $ npm run start
 Open your browser to: http://localhost:8080/demo/
+```
 
 Now Go to **demo/provider.jsx** file and changes **saveText**,**cancelText** and **EditText** and check updated string on browser Grid.
-'''javascript
+```javascript
 const config = {
     columns,
     // data,
