@@ -555,6 +555,30 @@ Menu.defaultProps = {
         editText: string,
         emptyDataMessage: any
   ```
+  [File path: demo/provider.jsx ]
+  * Added **SaveText** , **cancelText** and **editText** in const config.
+
+  ```javascript
+  const config = {
+    columns,
+    // data,
+    // data: treeData,
+    // dataSource: treeDataSource,
+    // infinite: true,
+    stateful: false,
+    dataSource: examplePromiseDataSource,
+    // dragAndDrop: true,
+    // gridType: 'tree',
+    pageSize,
+    plugins,
+    events,
+    stateKey,
+    saveText: 'Save',
+    cancelText: 'Cancel',
+    editText: 'Edit'
+};
+  ```
+
 
 ## Files Path
 
