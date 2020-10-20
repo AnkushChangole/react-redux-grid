@@ -196,7 +196,7 @@
                 editor, store, rowId, rowData, rowIndex, columns, stateKey, editText
             )
         );
-
+  ```
   * Updated **getEditAction** and updated text with **editText** prop value.
   ```javascript
   export const getEditAction = (
@@ -232,6 +232,95 @@ Menu.defaultProps = {
     editText: 'Edit'
 };
   ```
+
+ [File Path: src/components/plugins/gridactions/ActionColumn.jsx]
+
+ * Added **editText** to const
+ ```javascript
+ render() {
+        const { CLASS_NAMES } = gridConfig();
+        const {
+            columns,
+            editText,
+            editor,
+            events,
+            headerActionItemBuilder,
+            iconCls,
+            menuState,
+            reducerKeys,
+            rowData,
+            rowId,
+            rowIndex,
+            stateKey,
+            stateful,
+            store,
+            type
+        } = this.props;
+  ```
+  * Added **editText** in **actionArgs** array. 
+  ```javascript
+   const actionArgs = [
+            columns,
+            containerProps,
+            iconProps,
+            menuShown,
+            actions,
+            columns,
+            store,
+            editor,
+            reducerKeys,
+            rowId,
+            rowData,
+            rowIndex,
+            stateKey,
+            stateful,
+            headerActionItemBuilder,
+            maxHeight,
+            editText,
+            events
+        ];
+    ```
+    * Added **editText** in **getColumn** function
+    ```javascript
+    export const getColumn = (
+    cols,
+    containerProps,
+    iconProps,
+    menuShown,
+    actions,
+    columns,
+    store,
+    editor,
+    reducerKeys,
+    rowId,
+    rowData,
+    rowIndex,
+    stateKey,
+    stateful,
+    headerActionItemBuilder,
+    maxHeight,
+    editText
+) => {
+    const { CLASS_NAMES } = gridConfig();
+    const menu = menuShown
+        ?
+        <Menu {
+            ...{
+                actions: addKeysToActions(actions),
+                type: null,
+                rowData,
+                store,
+                editor,
+                reducerKeys,
+                rowId,
+                columns: cols,
+                stateKey,
+                rowIndex,
+                maxHeight,
+                editText
+            }
+        } />
+   ```
 ## Files Path
 
 ## Test Steps 
