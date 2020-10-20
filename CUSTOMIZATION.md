@@ -410,7 +410,7 @@ Menu.defaultProps = {
         });
   ```
 
-    [File Path: src/components/layout/TableRow.jsx]
+  [File Path: src/components/layout/TableRow.jsx]
 
   * Added **editText={this.props.editText}** to **toRowComponents**
   ```javascript
