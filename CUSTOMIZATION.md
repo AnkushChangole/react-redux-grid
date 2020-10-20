@@ -453,7 +453,7 @@ Menu.defaultProps = {
     );
   ```
 
-    [File Path: src/components/layout/TableContainer.jsx]
+  [File Path: src/components/layout/TableContainer.jsx]
 
   * Add **editText** to const props
   ```javascript
