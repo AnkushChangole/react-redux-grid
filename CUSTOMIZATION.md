@@ -473,7 +473,7 @@ Menu.defaultProps = {
             skipFn
         } = this.props;
   ```
-  * Passed **editText** to **<Row>**
+  * Passed **editText** to **Row**
   ```javascript
     <Row
                         canDrag={canDrag}
