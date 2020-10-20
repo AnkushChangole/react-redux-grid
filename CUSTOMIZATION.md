@@ -11,6 +11,7 @@
   File: src/components/plugins/editor/Inline.js
 
   1) Added props saveText and cancelText as shown below:
+  ```javascript
     const {
             BUTTON_TYPES,
             cancelText,
@@ -20,8 +21,10 @@
             stateKey,
             store
         } = this.props;
+  ```
 
   2) Passed these props to Button in return block.
+  ```javascript
    return (
             <div { ...inlineEditorProps }>
                 <span { ...buttonContainerProps }>
@@ -49,7 +52,7 @@
             </div>
         );
     }
-
+ ```
 ## Files Path
 
 ## Test Steps 
