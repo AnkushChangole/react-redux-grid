@@ -2,11 +2,10 @@
 
 ## Purpose
   * Modified react-redux-grid inline edit funtionality
-  * Modified repo to pass Save,Cancel and Edit button text as props from the component.
-  * This will help us to implement localization for these button text. 
+  * Modified repo to pass Save,Cancel and Edit button text as props from the component. 
 
 ## Logic - Save and Cancel Button
-  * For Save and Cancel Button Customization made chanegs in following files.
+  * For Save and Cancel button customization added changes in the following files.
 
     [File Path: src/components/plugins/editor/Inline.js]
 
@@ -55,7 +54,7 @@
   ```
   [File Path: src/components/plugins/editor/Manager.js]
 
-  * Updated **getComponent** function and added **saveText** and **cancelText** as parameter.
+  * Updated **getComponent** function and added **saveText** and **cancelText** as parameters.
 
   ```javascript
    getComponent(
@@ -101,7 +100,7 @@
             stateKey
         } = this.props;
   ```
-  * Added **saveText** and **cancelText** to **static prpoTypes**
+  * Added **saveText** and **cancelText** to **static propTypes**
 
   ```javascript
   static propTypes = {
@@ -150,7 +149,7 @@
     };
   ```
 
-  * Pass **saveText** and **cancelText** to **getEditor** function.
+  * Passed **saveText** and **cancelText** to **getEditor** function.
   ```javascript
   getEditor = () => this.editor.getComponent(
         this.props.plugins,
@@ -166,7 +165,7 @@
   ```
 
 ## Logic - Edit Button
-  * For **Edit** Button Customization made chanegs in following files.
+  * For **Edit** Button Customization added chanegs in following files.
 
   [File Path:src/components/plugins/gridactions/actioncolumn/Menu.jsx]
 
@@ -188,7 +187,7 @@
 }) => {
   ```
 
-  * Passed **editText** props to **getEditAction** fucntion
+  * Passed **editText** props to **getEditAction** function
   ```javascript
   if (editor.config.enabled && type !== 'header') {
         actions.menu.unshift(
@@ -211,7 +210,7 @@
     };
 };
    ```
- * Included **editText** in propTypes and assign defaultProps text as **Edit**
+ * Included **editText** in propTypes and assigned defaultProps text as **Edit**
  ```javascript
  Menu.propTypes = {
     actions: PropTypes.object,
@@ -593,7 +592,7 @@ Menu.defaultProps = {
 * src/components/plugins/gridactions/actioncolumn/Menu.jsx
 * demo/provider.jsx
 
-After adding changes in above files, I have executed **npm run dist** command, which updated same above complied file in dist folder.
+After adding changes in above files, executed **npm run dist** command, which updated below complied file in dist folder.
 * dist/components/Grid.js
 * dist/components/core/ColumnManager.js
 * dist/components/layout/TableContainer.js
